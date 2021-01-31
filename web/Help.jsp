@@ -1,6 +1,6 @@
 <%-- 
-    Document   : HomePage
-    Created on : Jan 14, 2021, 5:02:33 PM
+    Document   : Help
+    Created on : Jan 20, 2021, 9:36:36 AM
     Author     : paterne
 --%>
 
@@ -68,15 +68,15 @@
                             <div class="row">
                                 
                             </div>
-                            <form action="authenticate" method="post">
+                            <form action="">
                                 <div class="form-row">
                                     <div class="form-group col-sm-4">
                                         <label for="exampleInputEmail3" class="sr-only">Password</label>
-                                        <input type="email" class="form-control form-control-sm mr-1" id="email" name="email" placeholder="Enter email">
+                                        <input type="email" class="form-control form-control-sm mr-1" id="exampleInputEmail3" placeholder="Enter email">
                                     </div>
                                     <div class="form-group col-sm-4">
                                         <label class="sr-only" for="exampleInputPassword3"></label>
-                                        <input type="password" class="form-control form-control-sm mr-1" id="password" name="password" placeholder="Passowrd">
+                                        <input type="password" class="form-control form-control-sm mr-1" id="exampleInputPassword3" placeholder="Passowrd">
                                     </div>
                                     <div class="col-sm-auto">
                                         <div class="form-check">

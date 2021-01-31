@@ -1,6 +1,6 @@
 <%-- 
-    Document   : HomePage
-    Created on : Jan 14, 2021, 5:02:33 PM
+    Document   : Register
+    Created on : Jan 20, 2021, 9:26:59 AM
     Author     : paterne
 --%>
 
@@ -10,14 +10,14 @@
     <head>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        
+
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
         <title>JSP Page</title>
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/font-awesome.min.css">
-        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
     </head>
     <body>
         <div class="container-fluid">
@@ -43,11 +43,11 @@
                             <a href="" data-toggle="modal" data-target= "#loginModal">
                                 <span class="fa fa-sign-in"></span> Login
                             </a>
-                            
+
                         </span>
                         <span class="navbar-text">
                             <a href="#">
-                                
+
                                 <span class="ml-3 fa fa-user-plus"></span> Register
                             </a>
                         </span>
@@ -66,17 +66,17 @@
                         </div>
                         <div class="modal-body">
                             <div class="row">
-                                
+
                             </div>
-                            <form action="authenticate" method="post">
+                            <form action="">
                                 <div class="form-row">
                                     <div class="form-group col-sm-4">
                                         <label for="exampleInputEmail3" class="sr-only">Password</label>
-                                        <input type="email" class="form-control form-control-sm mr-1" id="email" name="email" placeholder="Enter email">
+                                        <input type="email" class="form-control form-control-sm mr-1" id="exampleInputEmail3" placeholder="Enter email">
                                     </div>
                                     <div class="form-group col-sm-4">
                                         <label class="sr-only" for="exampleInputPassword3"></label>
-                                        <input type="password" class="form-control form-control-sm mr-1" id="password" name="password" placeholder="Passowrd">
+                                        <input type="password" class="form-control form-control-sm mr-1" id="exampleInputPassword3" placeholder="Passowrd">
                                     </div>
                                     <div class="col-sm-auto">
                                         <div class="form-check">
@@ -97,16 +97,75 @@
 
             <div>
 
-                <div class="row">
-                    <div class="discr col-4 p-3 offset-1">
-                        <p class="">You are struggling
-                            to find a career path and 
-                            need some inspiration?</p>
-                    </div>
-                    <div class="image offset-1 col-6">
-                        <img class="image1 img-fluid" src="images/careerguidance.png" alt="carreer">
+                <div class="row ">
+                    <div class="discr col-6 p-3 offset-3">
+                        <div class="register">
 
+                            <form action="">
+                                <div id="form-title">
+                                    <h6 class="p-3"> fill all forms with true informations</h6>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-sm-5 offset-1">
+                                        <input type="text" class="form-control form-control-sm mr-1" id="firstName" placeholder="Enter First Name">
+                                    </div>
+                                    <div class="form-group col-sm-5 offset-1">
+                                        <input type="text" class="form-control form-control-sm mr-1" id="secondName" placeholder="Enter Second Name">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group  col-2 offset-1">
+                                        <input type="radio" name="sex" id="male" class="form-check-input" >
+                                        <label for="male" class="form-check-label">male</label>
+                                    </div>
+                                    <div class="form-group col-2">
+                                        <input type="radio" name="sex" id="female" class="form-check-input" >
+                                        <label for="male" class="form-check-label">female</label>
+                                    </div>
+
+                                    <div class="form-group col-sm-7">
+                                        <input type="email" class="form-control form-control-sm mr-1" id="email" placeholder="Enter email">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-sm-5 offset-1">
+                                        <select class="form-control" name="Status">
+                                            <option>
+                                                choose your status
+                                            </option>
+                                            <option>
+                                                am Student
+                                            </option>
+                                            <option>
+                                                am Parent
+                                            </option>
+                                            <option>
+                                                am Trainer
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-sm-5 offset-1">
+                                        <%
+                                            
+                                            %>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-sm-5 offset-1">
+                                        <input type="password" class="form-control form-control-sm mr-1" id="password" placeholder="Enter Password">
+                                    </div>
+                                    <div class="form-group col-sm-5 offset-1">
+                                        <input type="password" class="form-control form-control-sm mr-1" id="confirmpassword" placeholder="Confirm Your Password">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <button type="button" class="btn btn-secondary btn-sm ml-auto" data-dismiss="reset">reset</button>
+                                    <button type="submit" class="btn btn-warning btn-sm ml-1">Sign in</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
+
                 </div>
             </div>
             <footer class="footer bg-sucess">
@@ -157,6 +216,6 @@
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/popper.min.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/test.js"></script>
-    
+
     </body>
 </html>

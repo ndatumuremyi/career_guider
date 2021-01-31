@@ -1,23 +1,25 @@
 <%-- 
-    Document   : HomePage
-    Created on : Jan 14, 2021, 5:02:33 PM
+    Document   : Interview
+    Created on : Jan 29, 2021, 7:43:09 AM
     Author     : paterne
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="database.Questions"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        
+
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
         <title>JSP Page</title>
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/font-awesome.min.css">
-        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/main.css?12">
     </head>
     <body>
         <div class="container-fluid">
@@ -43,11 +45,11 @@
                             <a href="" data-toggle="modal" data-target= "#loginModal">
                                 <span class="fa fa-sign-in"></span> Login
                             </a>
-                            
+
                         </span>
                         <span class="navbar-text">
                             <a href="#">
-                                
+
                                 <span class="ml-3 fa fa-user-plus"></span> Register
                             </a>
                         </span>
@@ -66,7 +68,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="row">
-                                
+
                             </div>
                             <form action="authenticate" method="post">
                                 <div class="form-row">
@@ -95,18 +97,66 @@
                 </div>
             </div>
 
-            <div>
-
-                <div class="row">
-                    <div class="discr col-4 p-3 offset-1">
-                        <p class="">You are struggling
-                            to find a career path and 
-                            need some inspiration?</p>
+            <div class="contents">
+                
+                <form action="Interview" method="get">
+                    <div class="">
+                        <%
+                            for(Questions question :(ArrayList<Questions>) request.getAttribute("questions")){
+                                %>
+                                <div class="form-row question p-3">
+                                    <div class="offset-3 col-3 ">
+                                        <label><%= question.getQuestion() %> </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <input type="radio" name="<%= question.getQId() + "question" %>" required><label>True</label>
+                                    </div>
+                                    <div class="col-2">
+                                         <input type="radio" name="<%= question.getQId() + "question" %>"><label>False</label>
+                                    </div>
+                                </div>
+                                
+                                <%
+                            }
+                            request.getAttribute("questions");
+                        %>
                     </div>
-                    <div class="image offset-1 col-6">
-                        <img class="image1 img-fluid" src="images/careerguidance.png" alt="carreer">
-
-                    </div>
+                
+                
+                
+                
+                <div class="row justify-content-center">
+                    <nav aria-label="Page navigation">
+                        
+                        <!--<input name="page"class="sr-only" value="1">-->
+                        <ul class="pagination">
+                            <li class="page-item disabled">
+                                <button class="page-link pages-nav" id="prev" type="submit" tabindex="-1">Previous</button>
+                            </li>
+                            <%
+                                try{
+                                    
+                                for(int i =1; i <= (int)(request.getAttribute("totalPages"));i++){
+                                    %>
+                                    <li class="page-item " id="<%= i +'l' %>"><input class="page-link" type="submit" name="page" value="<%= i %>">
+                                    
+                                    <%
+                                        
+                                }
+                                }
+                                catch(Exception e){
+                                    out.print("<button class='page-link pages-nav' id='next' type='submit'>fail</button>");
+                                }
+                                finally{
+                                    out.println();
+                                }
+                            %>
+                            <li>
+                                <button class="page-link pages-nav" id="next" type="submit">Next</button>
+                            </li>
+                        </ul>
+                        </form>
+                    </nav>
                 </div>
             </div>
             <footer class="footer bg-sucess">
@@ -157,6 +207,20 @@
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/popper.min.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/test.js"></script>
-    
+        <script type="text/javascript">
+//            $(document).ready(function () {
+//                var pagesNav = $(".pages-nav");
+//            pagesNav.click(function(){
+//               id = $(this).attr("id");
+//               page = id.replaceAll('p','');
+//               if(page ==1 ){
+//                   alert("hello");
+//               }
+//            });
+//            pagesNav.submit();
+//            });
+            
+        </script>
+
     </body>
 </html>

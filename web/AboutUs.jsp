@@ -1,6 +1,6 @@
 <%-- 
-    Document   : HomePage
-    Created on : Jan 14, 2021, 5:02:33 PM
+    Document   : AboutUs
+    Created on : Jan 20, 2021, 9:26:33 AM
     Author     : paterne
 --%>
 
@@ -68,15 +68,15 @@
                             <div class="row">
                                 
                             </div>
-                            <form action="authenticate" method="post">
+                            <form action="">
                                 <div class="form-row">
                                     <div class="form-group col-sm-4">
                                         <label for="exampleInputEmail3" class="sr-only">Password</label>
-                                        <input type="email" class="form-control form-control-sm mr-1" id="email" name="email" placeholder="Enter email">
+                                        <input type="email" class="form-control form-control-sm mr-1" id="exampleInputEmail3" placeholder="Enter email">
                                     </div>
                                     <div class="form-group col-sm-4">
                                         <label class="sr-only" for="exampleInputPassword3"></label>
-                                        <input type="password" class="form-control form-control-sm mr-1" id="password" name="password" placeholder="Passowrd">
+                                        <input type="password" class="form-control form-control-sm mr-1" id="exampleInputPassword3" placeholder="Passowrd">
                                     </div>
                                     <div class="col-sm-auto">
                                         <div class="form-check">
@@ -98,14 +98,10 @@
             <div>
 
                 <div class="row">
-                    <div class="discr col-4 p-3 offset-1">
+                    <div class="discr col-8 p-3 offset-auto">
                         <p class="">You are struggling
                             to find a career path and 
                             need some inspiration?</p>
-                    </div>
-                    <div class="image offset-1 col-6">
-                        <img class="image1 img-fluid" src="images/careerguidance.png" alt="carreer">
-
                     </div>
                 </div>
             </div>

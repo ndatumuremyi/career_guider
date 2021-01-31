@@ -5,8 +5,15 @@
  */
 package running;
 
+import database.Questions;
+import database.Records;
+import database.Results;
+import database.Users;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,9 +25,10 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author paterne
  */
-@WebServlet("/home")
-public class HomePage extends HttpServlet {
-
+//@WebServlet("/Admin")
+public class Admin extends HttpServlet {
+    HttpServletRequest request;
+    HttpServletResponse response;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -41,14 +49,33 @@ public class HomePage extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    void addData(){
+        database.Connections connection = new database.Connections();
+        ArrayList<Users> users = connection.selectAll("users");
+        ArrayList<Questions> questions = connection.selectAll("questions");
+        ArrayList<Records> records = connection.selectAll("records");
+        ArrayList<Results> results = connection.selectAll("results");
+        request.setAttribute("users", users);
+        request.setAttribute("questions", questions);
+        request.setAttribute("records", records);
+        request.setAttribute("results", results);
+        request.setAttribute("myName", "paterne");
+        
+        RequestDispatcher view = request.getRequestDispatcher("html/Admin.jsp");
+        try {
+            view.forward(request, response);
+        } catch (ServletException | IOException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("myname", "paterne");
-        RequestDispatcher view = request.getRequestDispatcher("HomePage.jsp");
-        view.forward(request, response);
-        PrintWriter out = response.getWriter();
-        out.println("it works");
+        this.request = request;
+        this.response = response;
+        addData();
     }
 
     /**
@@ -62,7 +89,9 @@ public class HomePage extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        this.request = request;
+        this.response = response;
+        addData();
     }
 
     /**
