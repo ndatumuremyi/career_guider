@@ -76,7 +76,59 @@ public class Update extends HttpServlet {
                         PrintWriter out = response.getWriter();
                         out.print(query);
                 }
+                    break;
             }
+            case "questions":
+            {
+                    query += "questions SET question = \"" +request.getParameter("question")+"\",riasecType = \""+request.getParameter("riasecType")+
+                            "\", groupOfQuestion = \""+request.getParameter("groupOfQuestion")+"\", targetUser = \""+request.getParameter("targetUser")+
+                            "\" WHERE qId = \""+request.getParameter("qId")+"\";";
+                    if(connections.executeSet(query)){
+                        RequestDispatcher view = request.getRequestDispatcher("Admin");
+
+                        view.forward(request, response);
+                    }
+                    else{
+                        PrintWriter out = response.getWriter();
+                        out.print(query);
+                }
+                    break;
+            }
+            case "results":
+            {
+                    query += "results SET username = \"" +request.getParameter("username")+"\",realistic = \""+request.getParameter("realistic")+
+                            "\", social = \""+request.getParameter("social")+"\", investigative = \""+request.getParameter("investigative")+
+                            "\", enterprising = \""+request.getParameter("enterprising")+"\", artistic = \""+request.getParameter("artistic")+
+                            "\", conventional = \""+request.getParameter("conventional")+
+                            "\" WHERE rId = \""+request.getParameter("rId")+"\";";
+                    if(connections.executeSet(query)){
+                        RequestDispatcher view = request.getRequestDispatcher("Admin");
+
+                        view.forward(request, response);
+                    }
+                    else{
+                        PrintWriter out = response.getWriter();
+                        out.print(query);
+                }
+                    break;
+            }
+            case "record":
+            {
+                    query += "records SET username = \"" +request.getParameter("username")+"\",type = \""+request.getParameter("type")+
+                            "\", oriantation = \""+request.getParameter("oriantation")+
+                            "\" WHERE rId = \""+request.getParameter("rId")+"\";";
+                    if(connections.executeSet(query)){
+                        RequestDispatcher view = request.getRequestDispatcher("Admin");
+
+                        view.forward(request, response);
+                    }
+                    else{
+                        PrintWriter out = response.getWriter();
+                        out.print(query);
+                }
+                    break;
+            }
+            
         }
         }
         else if(operator.equals("add")){
@@ -97,7 +149,64 @@ public class Update extends HttpServlet {
                         view.forward(request, response);
                 }
                 
+                break;
+            }
+            case "questions":
+            {
+                database.Questions question = new database.Questions();
                 
+                
+                question.setQuestion(request.getParameter("question"));
+                question.setRiasecType(request.getParameter("riasecType"));
+                question.setGroupOfQuestion(request.getParameter("groupOfQuestion"));
+                question.setTargetUser(request.getParameter("targetUser"));
+                
+                
+                if(question.save()){
+                    RequestDispatcher view = request.getRequestDispatcher("Admin");
+
+                        view.forward(request, response);
+                }
+                
+                break;
+            }
+            case "results":
+            {
+                database.Results result = new database.Results();
+                
+                result.setArtistic(request.getParameter("artistic"));
+                result.setConventional(request.getParameter("conventional"));
+                result.setEnterprising(request.getParameter("enterprising"));
+                result.setInvestigative(request.getParameter("investigative"));
+                result.setRealistic(request.getParameter("realistic"));
+                result.setSocial(request.getParameter("social"));
+                result.setUsername(request.getParameter("username"));
+                
+                
+                if(result.save()){
+                    RequestDispatcher view = request.getRequestDispatcher("Admin");
+
+                        view.forward(request, response);
+                }
+                
+                break;
+            }
+            case "record":
+            {
+                database.Records record = new database.Records();
+                
+                record.setOriantation(request.getParameter("oriantation"));
+                record.setType(request.getParameter("type"));
+                record.setUsername(request.getParameter("username"));
+                
+                
+                if(record.save()){
+                    RequestDispatcher view = request.getRequestDispatcher("Admin");
+
+                        view.forward(request, response);
+                }
+                
+                break;
             }
             
         }

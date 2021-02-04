@@ -100,6 +100,7 @@
             <div class="contents">
                 
                 <form action="Interview" method="get">
+                    <input type="hidden" name="prevPage" value="<%= request.getAttribute("prevPage") %>">
                     <div class="">
                         <%
                             for(Questions question :(ArrayList<Questions>) request.getAttribute("questions")){
@@ -109,17 +110,35 @@
                                         <label><%= question.getQuestion() %> </label>
                                     </div>
                                     <div class="col-2">
-                                        <input type="radio" name="<%= question.getQId() + "question" %>" required><label>True</label>
+                                        <input type="radio" value="true" name="<%= question.getQId() + "question" %>" required><label>True</label>
                                     </div>
                                     <div class="col-2">
-                                         <input type="radio" name="<%= question.getQId() + "question" %>"><label>False</label>
+                                         <input type="radio" value="false" name="<%= question.getQId() + "question" %>"><label>False</label>
                                     </div>
                                 </div>
                                 
                                 <%
                             }
-                            request.getAttribute("questions");
+//                            request.getAttribute("questions");
                         %>
+                        <div class="row">
+                            <div class="offset-9 col-3">
+                                <%
+                                    try{
+                                        if( Boolean.parseBoolean((String) request.getAttribute("isFinalPage"))){
+                                        %>
+                                        <button class="btn" type="submit" name="submit" value="finish" >Finish</button>
+                                        <%
+                                    }
+                                    }catch(Exception e){
+                                        
+                                    }finally{
+                                        
+                                    }
+                                    
+                                    %>
+                            </div>
+                        </div>
                     </div>
                 
                 
@@ -130,8 +149,8 @@
                         
                         <!--<input name="page"class="sr-only" value="1">-->
                         <ul class="pagination">
-                            <li class="page-item disabled">
-                                <button class="page-link pages-nav" id="prev" type="submit" tabindex="-1">Previous</button>
+                            <li class="page-item">
+                                <button class="page-link pages-nav" id="prev" type="submit" tabindex="-1" name="submit" value="prev" >Previous</button>
                             </li>
                             <%
                                 try{
@@ -148,11 +167,12 @@
                                     out.print("<button class='page-link pages-nav' id='next' type='submit'>fail</button>");
                                 }
                                 finally{
+                                
                                     out.println();
                                 }
                             %>
                             <li>
-                                <button class="page-link pages-nav" id="next" type="submit">Next</button>
+                                <button class="page-link pages-nav" id="next" type="submit" name="submit" value="next">Next</button>
                             </li>
                         </ul>
                         </form>

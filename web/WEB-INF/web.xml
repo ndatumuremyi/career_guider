@@ -24,6 +24,18 @@
         <servlet-name>Interview</servlet-name>
         <servlet-class>running.Interview</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DashBoard</servlet-name>
+        <servlet-class>running.DashBoard</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>running.Logout</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Compute</servlet-name>
+        <servlet-class>running.Compute</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>
         <url-pattern>/HomePage</url-pattern>
@@ -47,6 +59,18 @@
     <servlet-mapping>
         <servlet-name>Interview</servlet-name>
         <url-pattern>/Interview</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DashBoard</servlet-name>
+        <url-pattern>/DashBoard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/Logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Compute</servlet-name>
+        <url-pattern>/Compute</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -16,7 +16,9 @@ public class Table {
     Connections operation = new Connections();
     HashMap<String, String>cvalues = new HashMap<>();
 
-    
+    public HashMap<String, String> getColValues(){
+        return this.cvalues;
+    }
     public Boolean save(){
         if(operation.insert(tableName, cvalues)){
             System.out.println("well inserted");

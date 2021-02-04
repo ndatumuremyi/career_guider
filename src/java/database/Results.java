@@ -25,10 +25,11 @@ public class Results extends Table{
     private String conventional;
     
     private Users user;
-    Results(){
+    public Results(){
         super.tableName = "results";
+        realistic = social = investigative = enterprising = artistic = conventional = "0";
     }
-    Results(String rId,String username,String realistic,String social,String investigative,String enterprising,String artistic,String conventional){
+    public Results(String rId,String username,String realistic,String social,String investigative,String enterprising,String artistic,String conventional){
         super.tableName = "results";
         
         this.rId = rId;

@@ -18,6 +18,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -49,12 +50,21 @@ public class Interview extends HttpServlet {
 //            out.println("</body>");
 //            out.println("</html>");
         database.Connections operation = new database.Connections();
-        int start;
+        int start = 0;
+        int prevStart;
+        
         int count = 2;
-        int page;
+        int page = 1;
         int totalRows=0;
         int totalPages;
+        int prevPage = 1;
         ArrayList<Questions> questions = null;
+        ArrayList<Questions> prevQuestions = null;
+        
+        String answerParameter = null;
+        
+        HttpSession session = request.getSession(false);
+        database.Users user = (database.Users)  session.getAttribute("user");
         ResultSet result = operation.executeGet("SELECT COUNT(*) As nRows FROM questions ;");
         try {
             while (result.next()) {
@@ -62,29 +72,82 @@ public class Interview extends HttpServlet {
                 
             }
             String pageString = request.getParameter("page");
-            if(pageString == null){
+            String prevPageString = request.getParameter("prevPage");
+            if(pageString == null && request.getParameter("submit") == null){
                 page =1;
             }
-            else{
+            else if(pageString != null && request.getParameter("submit") == null){
                 page = Integer.parseInt(pageString);
             }
+            else if(prevPageString != null && request.getParameter("submit").equals("next")){
+                page = Integer.parseInt(prevPageString) + 1 ;
+            }
+            else if(prevPageString != null && request.getParameter("submit").equals("prev")){
+                page = Integer.parseInt(prevPageString) -1;
+            }
+            if(prevPageString != null){
+                prevPage = Integer.parseInt(prevPageString);
+            }
+//            else{
+//                
+//            }
             
             
             start = count * (page - 1);
+            prevStart = count*(prevPage - 1);
+            
+            
             
             if(totalRows >= start){
                 questions = operation.selectAll("questions", start, count);
+                
             }
+            
+            if(!(page == 1 && prevPage == 1)){
+                prevQuestions = operation.selectAll("questions",prevStart,count);
+            }
+            
             
         } catch (SQLException ex) {
             Logger.getLogger(Interview.class.getName()).log(Level.SEVERE, null, ex);
         }
+        if((start+count) >= totalRows){
+                request.setAttribute("isFinalPage", "true");
+            }
+            else{
+                request.setAttribute("isFinalPage", "false");
+            }
         
+        try{
+            String ans;
+            for(Questions prevQuestion : prevQuestions ){
+            answerParameter = prevQuestion.getQId() + "question";
+            ans = request.getParameter(answerParameter);
+            
+            
+            prevQuestion.setAndSaveAnswer(user.getUsername(), ans);
+        }
+        }catch(NullPointerException e){
+            System.out.println();
+            System.out.println("null pointer");
+        }
+        
+        String submit = request.getParameter("submit");
+        if(submit == null || submit.equals("next") || submit.equals("prev")){
         totalPages = totalRows/count;
         request.setAttribute("questions", questions);
         request.setAttribute("totalPages", totalPages);
+        request.setAttribute("prevPage", page);
         RequestDispatcher view = request.getRequestDispatcher("Interview.jsp");
         view.forward(request, response);
+        }
+        else if(submit.equals("finish")){
+            RequestDispatcher view = request.getRequestDispatcher("Compute");
+            view.forward(request, response);
+        }
+        
+        
+        
 
     }
 

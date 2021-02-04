@@ -207,10 +207,145 @@ public class Connections {
                         Questions question = new Questions();
                         
 //                        question.setAnsId(output.getString("AnsId"));
-                        question.setGroup(output.getString("group"));
+                        
                         question.setQId(output.getString("qId"));
                         question.setQuestion(output.getString("question"));
                         question.setRiasecType(output.getString("riasecType"));
+                        question.setGroupOfQuestion(output.getString("groupOfQuestion"));
+                        question.setTargetUser(output.getString("targetUser"));
+                        result.add(question);
+                    }
+                    
+                    
+                    return result;
+                } catch (SQLException ex) {
+                    Logger.getLogger(Connections.class.getName()).log(Level.SEVERE, null, ex);
+                    return null;
+                }
+            }
+            case "results":
+            {
+                ArrayList<Results> result = new ArrayList<>();
+                try {
+                    while(output.next()){
+                        Results results = new Results();
+                        
+//                        questions.setBelongInChap(output.getString("BelongInChap"));
+                        results.setArtistic(output.getString("artistic"));
+                        results.setConventional(output.getString("conventional"));
+                        results.setEnterprising(output.getString("enterprising"));
+                        results.setInvestigative(output.getString("investigative"));
+                        results.setRId(output.getString("rId"));
+                        results.setRealistic(output.getString("realistic"));
+                        results.setSocial(output.getString("social"));
+                        results.setUsername(output.getString("username"));
+                        
+                        result.add(results);
+                        
+                    }
+                    return result;
+                }
+                catch( SQLException ex){
+                    ex.printStackTrace(System.out);
+                    return null;
+                }
+                
+            }
+            case "records":
+            {
+                
+                ArrayList<Records> result;
+                try {
+                    result = new ArrayList<>();
+                    while(output.next()){
+                        Records record = new Records();
+                        
+//                        record.setHmId(output.getString("HmId"));
+                        record.setOriantation(output.getString("oriantation"));
+                        record.setRId(output.getString("rId"));
+                        record.setType(output.getString("type"));
+                        record.setUsername(output.getString("username"));
+                        
+                        result.add(record);
+                    }
+                    return result;
+                } catch (SQLException ex) {
+                    ex.printStackTrace(System.out);
+                    return null;
+                }
+            }
+            case "answers":
+            {
+                ArrayList<Answers> result = new ArrayList<>();
+                try{
+                    while(output.next()){
+                        Answers answer = new Answers();
+                        answer.setAnId((output.getString("anId")));
+                        answer.setAnswers(output.getString("answers"));
+                        answer.setQuestions(output.getString("questions"));
+                        answer.setUsername(output.getString("username"));
+                        
+                        result.add(answer);
+                    }
+                    return result;
+                }catch (SQLException ex) {
+                ex.printStackTrace(System.out);
+                    return null;
+            }
+            }
+            case "users":
+            {
+                ArrayList<Users> result = new ArrayList<>();
+            try {
+                while(output.next()){
+                    Users user =new Users();
+                    
+//                    user.setCell(output.getString("Cell"));
+                    user.setEmail(output.getString("email"));
+                    user.setFirstName(output.getString("firstName"));
+                    user.setLastName(output.getString("lastName"));
+                    user.setPassword(output.getString("password"));
+                    user.setTypeOfUser(output.getString("typeOfUser"));
+                    user.setUserId(output.getString("userId"));
+                    user.setUsername(output.getString("username"));
+                    
+                    
+                    result.add(user);
+                }
+                return result;
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.out);
+                    return null;
+            }
+            }
+            
+            default:
+            {
+                return null;
+            }
+        }
+        
+        
+        
+        
+    }
+    ArrayList FormArrayList(ResultSet output , String tableName){
+        
+        switch (tableName) {
+            case "questions":
+            {
+                
+                ArrayList<Questions> result = new ArrayList<>();
+                try {
+                    while(output.next()){
+                        Questions question = new Questions();
+                        
+//                        question.setAnsId(output.getString("AnsId"));
+                        
+                        question.setQId(output.getString("qId"));
+                        question.setQuestion(output.getString("question"));
+                        question.setRiasecType(output.getString("riasecType"));
+                        question.setGroupOfQuestion(output.getString("groupOfQuestion"));
                         question.setTargetUser(output.getString("targetUser"));
                         result.add(question);
                     }
@@ -272,6 +407,25 @@ public class Connections {
                     return null;
                 }
             }
+            case "answers":
+            {
+                ArrayList<Answers> result = new ArrayList<>();
+                try{
+                    while(output.next()){
+                        Answers answer = new Answers();
+                        answer.setAnId((output.getString("anId")));
+                        answer.setAnswers(output.getString("answers"));
+                        answer.setQuestions(output.getString("questions"));
+                        answer.setUsername(output.getString("username"));
+                        
+                        result.add(answer);
+                    }
+                    return result;
+                }catch (SQLException ex) {
+                ex.printStackTrace(System.out);
+                    return null;
+            }
+            }
             case "users":
             {
                 ArrayList<Users> result = new ArrayList<>();
@@ -303,8 +457,6 @@ public class Connections {
                 return null;
             }
         }
-        
-        
         
         
     }
@@ -360,6 +512,39 @@ public class Connections {
     }
     
     
+    
+    
+    
+    
+    
+    public ArrayList find(String tableName, String columnName, String condition){
+        
+        String query = "select * from "+ tableName +" where "+ columnName + " = \"" + condition + "\";";
+        
+        
+                
+        try {
+//            System.out.println(query);
+            ResultSet output = statement.executeQuery(query);
+            return FormArrayList(output, tableName);
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Connections.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
    
     
     
@@ -393,10 +578,11 @@ public class Connections {
                         Questions question = new Questions();
                         
 //                        question.setAnsId(output.getString("AnsId"));
-                        question.setGroup(output.getString("group"));
+                        
                         question.setQId(output.getString("qId"));
                         question.setQuestion(output.getString("question"));
                         question.setRiasecType(output.getString("riasecType"));
+                        question.setGroupOfQuestion(output.getString("groupOfQuestion"));
                         question.setTargetUser(output.getString("targetUser"));
                         result.add(question);
                     }

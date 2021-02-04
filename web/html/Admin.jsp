@@ -100,8 +100,379 @@
                     </div>
                 </div>
             </div>
-
             
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <div id="EditResultModal" class="modal fade" role="dialog">
+                <div class="modal-dialog modal-lg" role="content">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Edit</h4>
+                            <button type="button" class="close" data-dismiss="modal">
+                                &times;
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-12">
+
+                                    <div class="card">
+                                        <h3 class="card-header bg-warning text-white">
+                                            Edit part
+                                        </h3>
+                                        <div class="card-body">
+                                            <form action="Update" method="post">
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-4">
+                                                        <label for="rId" class="">Result Id</label>
+                                                    </div>
+                                                    <div class="form-group col-sm-8">
+                                                        <input type="text" class="" id="rIdTE" name="rId" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-4">
+                                                        <label for="username" class="">Username</label>
+                                                    </div>
+                                                    <div class="form-group col-sm-8">
+                                                        <input type="text" class="" id="usernameTE" name="username">
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-4">
+                                                        <label for="realistic" class="">realistic</label>
+                                                    </div>
+                                                    <div class="form-group col-sm-8">
+                                                        <input type="text" class="" id="realisticTE" name="realistic">
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-4">
+                                                        <label for="social" class="">Social</label>
+                                                    </div>
+                                                    <div class="form-group col-sm-8">
+                                                        <input type="text" class="" name="social" id="socialTE">
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-4">
+                                                        <label for="investigative" class="">Investigative</label>
+                                                    </div>
+                                                    <div class="form-group col-sm-8">
+                                                        <input type="text" class="" name="investigative" id="investigativeTE">
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-4">
+                                                        <label for="enterprising" class="">enterprising</label>
+                                                    </div>
+                                                    <div class="form-group col-sm-8">
+                                                        <input type="text" class="" name="enterprising" id="enterprisingTE">
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-4">
+                                                        <label for="artistic" class="">artistic</label>
+                                                    </div>
+                                                    <div class="form-group col-sm-8">
+                                                        <input type="text" class="" name="artistic" id="artisticTE">
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-4">
+                                                        <label for="conventional" class="">conventional</label>
+                                                    </div>
+                                                    <div class="form-group col-sm-8">
+                                                        <input type="text" class="" name="conventional" id="conventionalTE">
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-4">
+                                                        <label for="operationForResult" class="sr-only" >operation for Result</label>
+                                                    </div>
+                                                    <div class="form-group col-sm-8">
+                                                        <input type="hidden" class="" name="operator" value="" id="operatorForResult">
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-4">
+                                                        <label for="tableName" class="sr-only" >submit from</label>
+                                                    </div>
+                                                    <div class="form-group col-sm-8">
+                                                        <input type="hidden" class="" name="tableName" id="tableName" value="results">
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="offset-8 form-group col-sm-4">
+                                                        <div class="btn-group">
+                                                            <button type="submit" class="btn btn-warning" id="changeResult" > Update</button>
+                                                            <button type="reset" class="btn" id="reset" > Reset</button>
+                                                            <button type="submit" class="btn btn-warning" id="addResultFinal" > Add</button>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <!--record modal -------------------------------------------------------------------------------------------------->
+            <div id="EditRecordModal" class="modal fade" role="dialog">
+                <div class="modal-dialog modal-lg" role="content">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Edit</h4>
+                            <button type="button" class="close" data-dismiss="modal">
+                                &times;
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-12">
+
+                                    <div class="card">
+                                        <h3 class="card-header bg-warning text-white">
+                                            Edit part
+                                        </h3>
+                                        <div class="card-body">
+                                            <form action="Update" method="post">
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-4">
+                                                        <label for="rId" class="">record Id</label>
+                                                    </div>
+                                                    <div class="form-group col-sm-8">
+                                                        <input type="text" class="" id="recordIdTE" name="rId" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-4">
+                                                        <label for="username" class="">Username</label>
+                                                    </div>
+                                                    <div class="form-group col-sm-8">
+                                                        <input type="text" class="" id="usernameForRecordTE" name="username">
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-4">
+                                                        <label for="type" class=""> Type</label>
+                                                    </div>
+                                                    <div class="form-group col-sm-8">
+                                                        <input type="text" class="" id="typeTE" name="type">
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-4">
+                                                        <label for="oriantation" class="">Orientation</label>
+                                                    </div>
+                                                    <div class="form-group col-sm-8">
+                                                        <input type="text" class="" name="oriantation" id="oriantationTE">
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-4">
+                                                        <label for="operationForRecord" class="sr-only" >operation for question</label>
+                                                    </div>
+                                                    <div class="form-group col-sm-8">
+                                                        <input type="hidden" class="" name="operator" value="" id="operatorForRecord">
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-4">
+                                                        <label for="tableName" class="sr-only" >submit from</label>
+                                                    </div>
+                                                    <div class="form-group col-sm-8">
+                                                        <input type="hidden" class="" name="tableName" id="tableName" value="record">
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="offset-8 form-group col-sm-4">
+                                                        <div class="btn-group">
+                                                            <button type="submit" class="btn btn-warning" id="changeRecord" > Update</button>
+                                                            <button type="reset" class="btn" id="reset" > Reset</button>
+                                                            <button type="submit" class="btn btn-warning" id="addRecordFinal" > Add</button>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <div id="EditQuestionModal" class="modal fade" role="dialog">
+                <div class="modal-dialog modal-lg" role="content">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Edit</h4>
+                            <button type="button" class="close" data-dismiss="modal">
+                                &times;
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-12">
+
+                                    <div class="card">
+                                        <h3 class="card-header bg-warning text-white">
+                                            Edit part
+                                        </h3>
+                                        <div class="card-body">
+                                            <form action="Update" method="post">
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-4">
+                                                        <label for="qId" class="">Question id</label>
+                                                    </div>
+                                                    <div class="form-group col-sm-8">
+                                                        <input type="text" class="" id="qIdTE" name="qId" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-4">
+                                                        <label for="question" class="">Question</label>
+                                                    </div>
+                                                    <div class="form-group col-sm-8">
+                                                        <input type="text" class="" id="questionTE" name="question">
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-4">
+                                                        <label for="riasecType" class="">Riasec Type</label>
+                                                    </div>
+                                                    <div class="form-group col-sm-8">
+                                                        <input type="text" class="" id="riasecTypeTE" name="riasecType">
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-4">
+                                                        <label for="groupOfQuestion" class="">Group Of Question</label>
+                                                    </div>
+                                                    <div class="form-group col-sm-8">
+                                                        <input type="text" class="" name="groupOfQuestion" id="groupOfQuestionTE">
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-4">
+                                                        <label for="targetUser" class="">Target User</label>
+                                                    </div>
+                                                    <div class="form-group col-sm-8">
+                                                        <input type="text" class="" name="targetUser" id="targetUserTE">
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-4">
+                                                        <label for="operationForQuestion" class="sr-only" >operation for question</label>
+                                                    </div>
+                                                    <div class="form-group col-sm-8">
+                                                        <input type="hidden" class="" name="operator" value="" id="operatorForQuestion">
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-4">
+                                                        <label for="typeOfUser" class="sr-only" >submit from</label>
+                                                    </div>
+                                                    <div class="form-group col-sm-8">
+                                                        <input type="hidden" class="" name="tableName" id="tableName" value="questions">
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="offset-8 form-group col-sm-4">
+                                                        <div class="btn-group">
+                                                            <button type="submit" class="btn btn-warning" id="changeQuestion" > Update</button>
+                                                            <button type="reset" class="btn" id="reset" > Reset</button>
+                                                            <button type="submit" class="btn btn-warning" id="addQuestionFinal" > Add</button>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
             
             
             
@@ -212,7 +583,7 @@
                                                         <label for="typeOfUser" class="sr-only" >operation</label>
                                                     </div>
                                                     <div class="form-group col-sm-8">
-                                                        <input type="hidden" class="" name="operator" value="" id="operator">
+                                                        <input type="hidden" class="" name="operator" value="" id="operatorForUser">
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
@@ -365,7 +736,7 @@
                                             </table>
                                         </div>
                                     </div>
-                                    <div class="offset- col-12 col-sm-3"></div>
+                                    <div class="offset-auto col-12 col-sm-3"></div>
                                 </div>
                                 <div class="row">
                                     <div class="offset-9 col-12 col-sm-3">
@@ -390,7 +761,7 @@
                                                         <th>Question Id</th>
                                                         <th>Question</th>
                                                         <th>Type of question</th>
-                                                        <th>group</th>
+                                                        <th>group Of Question</th>
                                                         <th> Target User</th>
                                                         <th>Operations</th>
 
@@ -404,7 +775,7 @@
                                                             for (Questions question : (ArrayList<Questions>) request.getAttribute("questions")) {
 
                                                     %>
-                                                    <tr>
+                                                    <tr class="trOfDataForQuestion" id="<%= question.getQId() + "questionTr"%>">
                                                         <td>
                                                             <%= question.getQId()%>
                                                         </td>
@@ -415,15 +786,15 @@
                                                             <%= question.getRiasecType()%>
                                                         </td>
                                                         <td>
-                                                            <%= question.getGroup()%>
+                                                            <%= question.getGroupOfQuestion()%>
                                                         </td>
                                                         <td>
                                                             <%= question.getTargetUser()%>
                                                         </td>
                                                         <td>
                                                             <div class="btn-group" role="group">
-                                                                <a role="button" class="btn btn-primary editQuestion" id="<%= question.getQId() + "edit"%>"><i class="fa fa-edit"></i>Edit</a>
-                                                                <a role="button" class="btn btn-danger deleteQuestion" id="<%= question.getQId() + "delete"%>"><i class="fa fa-delete"></i> Delete</a>
+                                                                <a role="button" class="btn btn-primary editQuestion" id="<%= question.getQId() %>"><i class="fa fa-edit"></i>Edit</a>
+                                                                <a role="button" class="btn btn-danger deleteQuestion" id="<%= question.getQId() %>"><i class="fa fa-delete"></i> Delete</a>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -447,7 +818,11 @@
                                 </div>
                                 <div class="row">
                                     <div class="offset-9 col-12 col-sm-3">
-                                        <button class="btn btn-warning">Add</button>
+                                        <button class="btn btn-warning" id="addQuestion">
+                                           
+                                                <span class="fa fa-plus"></span> Add
+                                            
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -476,7 +851,7 @@
                                                             for (Records record : (ArrayList<Records>) request.getAttribute("records")) {
 
                                                     %>
-                                                    <tr>
+                                                    <tr class="trOfDataForRecord" id="<%= record.getRId()+ "recordTr"%>">
                                                         <td>
                                                             <%= record.getRId()%>
                                                         </td>
@@ -491,8 +866,8 @@
                                                         </td>
                                                         <td>
                                                             <div class="btn-group" role="group">
-                                                                <a role="button" class="btn btn-primary editRecord" id="<%= record.getRId() + "edit"%>"><i class="fa fa-edit"></i>Edit</a>
-                                                                <a role="button" class="btn btn-danger deleteRecord" id="<%= record.getRId() + "delete"%>"><i class="fa fa-delete"></i> Delete</a>
+                                                                <a role="button" class="btn btn-primary editRecord" id="<%= record.getRId() %>"><i class="fa fa-edit"></i>Edit</a>
+                                                                <a role="button" class="btn btn-danger deleteRecord" id="<%= record.getRId() %>"><i class="fa fa-delete"></i> Delete</a>
                                                             </div>
                                                         </td>
 
@@ -517,7 +892,11 @@
                                 </div>
                                 <div class="row">
                                     <div class="offset-9 col-12 col-sm-3">
-                                        <button class="btn btn-warning">Add</button>
+                                        <button class="btn btn-warning" id="addRecord">
+                                           
+                                                <span class="fa fa-plus"></span> Add
+                                            
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -550,7 +929,7 @@
                                                             for (Results result : (ArrayList<Results>) request.getAttribute("results")) {
 
                                                     %>
-                                                    <tr>
+                                                    <tr class="trOfDataForResult" id="<%= result.getRId()+ "resultTr"%>">
                                                         <td>
                                                             <%= result.getRId()%>
                                                         </td>
@@ -577,8 +956,8 @@
                                                         </td>
                                                         <td>
                                                             <div class="btn-group" role="group">
-                                                                <a role="button" class="btn btn-primary editResult" id="<%= result.getRId() + "edit"%>"><i class="fa fa-edit"></i>Edit</a>
-                                                                <a role="button" class="btn btn-danger deleteResult" id="<%= result.getRId() + "delete"%>"><i class="fa fa-delete"></i> Delete</a>
+                                                                <a role="button" class="btn btn-primary editResult" id="<%= result.getRId() %>"><i class="fa fa-edit"></i>Edit</a>
+                                                                <a role="button" class="btn btn-danger deleteResult" id="<%= result.getRId() %>"><i class="fa fa-delete"></i> Delete</a>
                                                             </div>
                                                         </td>
 
@@ -603,7 +982,11 @@
                                 </div>
                                 <div class="row">
                                     <div class="offset-9 col-12 col-sm-3">
-                                        <button class="btn btn-warning">Add</button>
+                                        <button class="btn btn-warning" id="addResult">
+                                           
+                                                <span class="fa fa-plus"></span> Add
+                                            
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -667,7 +1050,7 @@
                 add.click(function(){
                     $("#changeUser").hide();
                     $("#addUserFinal").show();
-                    $("#operator").attr("value","add");
+                    $("#operatorForUser").attr("value","add");
                     $("#EditUserModal").modal('show');
                 });
                 
@@ -675,7 +1058,7 @@
                 edit.click(function () {
                     $("#changeUser").show();
                 $("#addUserFinal").hide();
-                $("#operator").attr("value","update");
+                $("#operatorForUser").attr("value","update");
                     var id = $(this).attr("id");
                     $(".trOfData").each(function () {
                         var trId = $(this).attr("id");
@@ -702,6 +1085,187 @@
 
 
                 });
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                var addQuestion = $("#addQuestion");
+                addQuestion.click(function(){
+                    $("#changeQuestion").hide();
+                    $("#addQuestionFinal").show();
+                    $("#operatorForQuestion").attr("value","add");
+                    $("#EditQuestionModal").modal('show');
+                });
+                
+                var editQuestion = $(".editQuestion");
+                editQuestion.click(function () {
+                    $("#changeQuestion").show();
+                $("#addQuestionFinal").hide();
+                $("#operatorForQuestion").attr("value","update");
+                
+                    var idForQuestion = $(this).attr("id");
+                    $(".trOfDataForQuestion").each(function () {
+                        var trId = $(this).attr("id");
+                        if (trId.includes(idForQuestion)) {
+                            var condit = "#" + trId + " td";
+//                           var tr= $(condit).eq(1).text();
+//                           var userId = tr.trim();
+//                             $("#usernameTE").val(userId);
+                            $("#qIdTE").val($.trim($(condit).eq(0).text()));
+                            $("#questionTE").val($.trim($(condit).eq(1).text()));
+                            $("#riasecTypeTE").val($.trim($(condit).eq(2).text()));
+                            $("#groupOfQuestionTE").val($.trim($(condit).eq(3).text()));
+                            $("#targetUserTE").val($.trim($(condit).eq(4).text()));
+                            
+
+//                           
+//                           
+
+                        }
+                    });
+
+                    $("#EditQuestionModal").modal('show');
+
+
+                });
+
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                var addResult = $("#addResult");
+                addResult.click(function(){
+                    $("#changeResult").hide();
+                    $("#addResultFinal").show();
+                    $("#operatorForResult").attr("value","add");
+                    $("#EditResultModal").modal('show');
+                });
+                
+                var editResult = $(".editResult");
+                editResult.click(function () {
+                    $("#changeResult").show();
+                $("#addResultFinal").hide();
+                $("#operatorForResult").attr("value","update");
+                
+                    var idForResult = $(this).attr("id");
+                    $(".trOfDataForResult").each(function () {
+                        var trId = $(this).attr("id");
+                        if (trId.includes(idForResult)) {
+                            var condit = "#" + trId + " td";
+//                           var tr= $(condit).eq(1).text();
+//                           var userId = tr.trim();
+//                             $("#usernameTE").val(userId);
+                            $("#rIdTE").val($.trim($(condit).eq(0).text()));
+                            $("#usernameTE").val($.trim($(condit).eq(1).text()));
+                            $("#realisticTE").val($.trim($(condit).eq(2).text()));
+                            $("#socialTE").val($.trim($(condit).eq(3).text()));
+                            $("#investigativeTE").val($.trim($(condit).eq(4).text()));
+                            $("#enterprisingTE").val($.trim($(condit).eq(5).text()));
+                            $("#artisticTE").val($.trim($(condit).eq(6).text()));
+                            $("#conventionalTE").val($.trim($(condit).eq(7).text()));
+                            
+
+//                           
+//                           
+
+                        }
+                    });
+
+                    $("#EditResultModal").modal('show');
+
+
+                });
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                var addRecord = $("#addRecord");
+                addRecord.click(function(){
+                    $("#changeRecord").hide();
+                    $("#addRecordFinal").show();
+                    $("#operatorForRecord").attr("value","add");
+                    $("#EditRecordModal").modal('show');
+                });
+                
+                var editRecord = $(".editRecord");
+                editRecord.click(function () {
+                    $("#changeRecord").show();
+                $("#addRecordFinal").hide();
+                $("#operatorForRecord").attr("value","update");
+                
+                    var idForRecord = $(this).attr("id");
+                    $(".trOfDataForRecord").each(function () {
+                        var trId = $(this).attr("id");
+                        if (trId.includes(idForRecord)) {
+                            var condit = "#" + trId + " td";
+//                           var tr= $(condit).eq(1).text();
+//                           var userId = tr.trim();
+//                             $("#usernameTE").val(userId);
+                            $("#recordIdTE").val($.trim($(condit).eq(0).text()));
+                            $("#usernameForRecordTE").val($.trim($(condit).eq(1).text()));
+                            $("#typeTE").val($.trim($(condit).eq(2).text()));
+                            $("#oriantationTE").val($.trim($(condit).eq(3).text()));
+                            
+                            
+
+//                           
+//                           
+
+                        }
+                    });
+
+                    $("#EditRecordModal").modal('show');
+
+
+                });
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
             });
         </script>
 

@@ -51,18 +51,21 @@ public class Answers extends Table {
     }
     public void setUsername(String username){
         this.username = username;
+        cvalues.put("username", username);
     }
     public String getQuestions (){
         return questions;
     }
     public void setQuestions(String questions){
         this.questions = questions;
+        cvalues.put("questions", questions);
     }
     public String getAnswers (){
         return answers;
     }
     public void setAnswers(String answers){
         this.answers = answers;
+        cvalues.put("answers", answers);
     }
     public Users getUser(){
         return this.user;
@@ -72,6 +75,7 @@ public class Answers extends Table {
     }
     public void findUser(){
         ResultSet output = operation.findOr(new ConditionalData("users", "username", this.username));
+        user = new Users();
         try {
             while(output.next()){
                 user.setEmail(output.getString("email"));
@@ -87,10 +91,11 @@ public class Answers extends Table {
     }
     public void findQuestion(){
         ResultSet output = operation.findOr(new ConditionalData("questions", "qId", this.questions));
+        question = new Questions();
         try {
             while(output.next()){
                 question.setQId(output.getString("qId"));
-                question.setGroup(output.getString("group"));
+                question.setGroupOfQuestion(output.getString("group"));
                 question.setQuestion(output.getString("question"));
                 question.setRiasecType(output.getString("riasecType"));
                 question.setTargetUser(output.getString("targetUser"));

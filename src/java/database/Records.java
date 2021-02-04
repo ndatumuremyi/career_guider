@@ -21,10 +21,10 @@ public class Records extends Table{
     private String oriantation;
     
     private Users user;
-    Records(){
+    public Records(){
         super.tableName = "records";
     }
-    Records(String rId, String username, String type, String oriantation){
+    public Records(String rId, String username, String type, String oriantation){
         super.tableName = "records";
         
         this.rId = rId;
