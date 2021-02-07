@@ -5,6 +5,11 @@
  */
 package database;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author paterne
@@ -17,6 +22,9 @@ public class Users extends Table{
     private String lastName;
     private String email;
     private String typeOfUser;
+    
+    public Results result;
+    public Records record;
     
     
     public Users(){
@@ -95,5 +103,49 @@ public class Users extends Table{
     }
     public String getTypeOfUser (){
         return typeOfUser;
+    }
+    
+    
+    
+    public void findResults(){
+        ResultSet output = operation.findOr(new ConditionalData("results", "username", this.username));
+        result = new Results();
+        try {
+            while(output.next()){
+                result.setArtistic(output.getString("artistic"));
+                result.setConventional(output.getString("conventional"));
+                result.setEnterprising(output.getString("enterprising"));
+                result.setInvestigative(output.getString("investigative"));
+                result.setRId(output.getString("rId"));
+                result.setRealistic(output.getString("realistic"));
+                result.setSocial(output.getString("social"));
+                result.setUsername(output.getString("username"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Results.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
+    public void findRecords(){
+        ResultSet output = operation.findOr(new ConditionalData("records", "username", this.username));
+        record = new Records();
+        try {
+            while(output.next()){
+                record.setOriantation(output.getString("oriantation"));
+                record.setRId(output.getString("rId"));
+                record.setType(output.getString("type"));
+                record.setUsername(output.getString("username"));
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Results.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    Results getResult(){
+        return result;
+    }
+    Records getRecord(){
+        return record;
     }
 }

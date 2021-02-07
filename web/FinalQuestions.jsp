@@ -1,9 +1,11 @@
 <%-- 
-    Document   : dashBoard
-    Created on : Jan 31, 2021, 5:14:31 PM
+    Document   : FinalQuestions
+    Created on : Feb 6, 2021, 11:44:30 PM
     Author     : paterne
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="database.Questions"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,13 +17,12 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
         <title>JSP Page</title>
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css?28">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/main.css?12">
     </head>
     <body>
         <div class="container-fluid">
-            
             
             
             
@@ -38,7 +39,6 @@
                     <%
                 }
                 %>
-            
             
             
             
@@ -62,7 +62,7 @@
 
                         </ul>
                         <span class="navbar-text">
-                            <a href="/career_guidance/logout">
+                            <a href="/career_guidance/Logout">
                                 <span class="fa fa-sign-in"></span> Logout
                             </a>
 
@@ -70,85 +70,95 @@
                         <span class="navbar-text">
                             <a href="#">
 
-                                <span class="ml-3 fa fa-user-plus"></span> Profile
+                                <span class="ml-3 fa fa-user"></span> My Profile
                             </a>
                         </span>
                     </div>
 
                 </div>
             </nav>
-
+            
 
             <div class="contents">
-
-                <div class="row">
-                    <div>
-                        <h1>DashBoard</h1>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-sm-6">
-                        <div class="">
-
-                            <div class="card">
-                                <h3 class="card-header bg-primary text-white"> Results </h3>
-                                <div class="card-body">
-                                    <dl class="row">
-                                        <%
-                                            try {
-                                                database.Results result = (database.Results) request.getAttribute("result");
-
-                                                if (request.getAttribute("result") != null) {
-
-
-                                        %>
-                                        <dt class="col-6"> In Artistic </dt>
-                                        <dd class="col-6"><%= result.getArtistic()%> % </dd>
-                                        <dt class="col-6">In Conventional</dt>
-                                        <dd class="col-6"><%= result.getConventional()%> % </dd>
-                                        <dt class="col-6">In Enterprising </dt>
-                                        <dd class="col-6"><%= result.getEnterprising()%> % </dd>
-                                        <dt class="col-6">In Investigative</dt>
-                                        <dd class="col-6"><%= result.getInvestigative()%> % </dd>
-                                        <dt class="col-6">In Realistic</dt>
-                                        <dd class="col-6"><%= result.getRealistic()%> % </dd>
-                                        <dt class="col-6">In Social</dt>
-                                        <dd class="col-6"><%= result.getSocial()%> % </dd>
-                                        <%
-                                                } else {
-                                                    %>
-                                                    <dd><b>take interview first</b></dd>
-                                                    <%
-                                                }
-                                            } catch (Exception e) {
-
-                                            }
-                                        %>
-                                    </dl>
+                
+                <form action="FinalQuestions" method="get">
+                    <input type="hidden" name="prevPage" value="<%= request.getAttribute("prevPage") %>">
+                    <div class="">
+                        <%
+                            for(Questions question :(ArrayList<Questions>) request.getAttribute("questions")){
+                                %>
+                                <div class="form-row question p-3">
+                                    <div class="offset-3 col-3 ">
+                                        <label><%= question.getQuestion() %> </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <input type="radio" value="true" name="<%= question.getQId() + "question" %>" required><label>True</label>
+                                    </div>
+                                    <div class="col-2">
+                                         <input type="radio" value="false" name="<%= question.getQId() + "question" %>"><label>False</label>
+                                    </div>
                                 </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-6">
-                        <div class="">
-                            <div class="card">
-                                <h3 class="card-header bg-primary text-white">Facts at a Glance</h3>
-                                <div class="card-body">
-                                    <dl class="row">
-                                        <dt class="col-6">Started</dt>
-                                        <dd class="col-6">3 Feb. 2013</dd>
-                                        <dt class="col-6">Major Stake Holder</dt>
-                                        <dd class="col-6">HK Fine Foods Inc.</dd>
-                                        <dt class="col-6">Last Year's Turnover</dt>
-                                        <dd class="col-6">$1,250,375</dd>
-                                        <dt class="col-6">Employees</dt>
-                                        <dd class="col-6">40</dd>
-                                    </dl>
-                                </div>
+                                
+                                <%
+                            }
+//                            request.getAttribute("questions");
+                        %>
+                        <div class="row">
+                            <div class="offset-9 col-3">
+                                <%
+                                    try{
+                                        if( Boolean.parseBoolean((String) request.getAttribute("isFinalPage"))){
+                                        %>
+                                        <button class="btn" type="submit" name="submit" value="finish" >Finish</button>
+                                        <%
+                                    }
+                                    }catch(Exception e){
+                                        
+                                    }finally{
+                                        
+                                    }
+                                    
+                                    %>
                             </div>
                         </div>
                     </div>
+                
+                
+                
+                
+                <div class="row justify-content-center">
+                    <nav aria-label="Page navigation">
+                        
+                        <!--<input name="page"class="sr-only" value="1">-->
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <button class="page-link pages-nav" id="prev" type="submit" tabindex="-1" name="submit" value="prev" >Previous</button>
+                            </li>
+                            <%
+                                try{
+                                    
+                                for(int i =1; i <= (int)(request.getAttribute("totalPages"));i++){
+                                    %>
+                                    <li class="page-item " id="<%= i +'l' %>"><input class="page-link" type="submit" name="page" value="<%= i %>">
+                                    
+                                    <%
+                                        
+                                }
+                                }
+                                catch(Exception e){
+                                    out.print("<button class='page-link pages-nav' id='next' type='submit'>fail</button>");
+                                }
+                                finally{
+                                
+                                    out.println();
+                                }
+                            %>
+                            <li>
+                                <button class="page-link pages-nav" id="next" type="submit" name="submit" value="next">Next</button>
+                            </li>
+                        </ul>
+                        </form>
+                    </nav>
                 </div>
             </div>
             <footer class="footer bg-sucess">
@@ -199,6 +209,20 @@
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/popper.min.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/test.js"></script>
+        <script type="text/javascript">
+//            $(document).ready(function () {
+//                var pagesNav = $(".pages-nav");
+//            pagesNav.click(function(){
+//               id = $(this).attr("id");
+//               page = id.replaceAll('p','');
+//               if(page ==1 ){
+//                   alert("hello");
+//               }
+//            });
+//            pagesNav.submit();
+//            });
+            
+        </script>
 
     </body>
 </html>

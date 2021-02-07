@@ -56,6 +56,7 @@ public class Update extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         database.Connections connections = new database.Connections();
         String query = "UPDATE ";
         String operator = request.getParameter("operator");
@@ -68,6 +69,7 @@ public class Update extends HttpServlet {
                             "\", firstName = \""+request.getParameter("firstName")+"\", lastName = \""+request.getParameter("lastName")+
                             "\", email = \"" +request.getParameter("email")+"\", typeOfUser = \""+ request.getParameter("typeOfUser")+"\" WHERE userId = \""+request.getParameter("userId")+"\";";
                     if(connections.executeSet(query)){
+                        request.setAttribute("message", "user well updated");
                         RequestDispatcher view = request.getRequestDispatcher("Admin");
 
                         view.forward(request, response);
@@ -82,8 +84,9 @@ public class Update extends HttpServlet {
             {
                     query += "questions SET question = \"" +request.getParameter("question")+"\",riasecType = \""+request.getParameter("riasecType")+
                             "\", groupOfQuestion = \""+request.getParameter("groupOfQuestion")+"\", targetUser = \""+request.getParameter("targetUser")+
-                            "\" WHERE qId = \""+request.getParameter("qId")+"\";";
+                            "\", nameOfGroup = \""+request.getParameter("nameOfGroup")+"\" WHERE qId = \""+request.getParameter("qId")+"\";";
                     if(connections.executeSet(query)){
+                        request.setAttribute("message", "question well updated");
                         RequestDispatcher view = request.getRequestDispatcher("Admin");
 
                         view.forward(request, response);
@@ -102,6 +105,7 @@ public class Update extends HttpServlet {
                             "\", conventional = \""+request.getParameter("conventional")+
                             "\" WHERE rId = \""+request.getParameter("rId")+"\";";
                     if(connections.executeSet(query)){
+                        request.setAttribute("message", "result well updated");
                         RequestDispatcher view = request.getRequestDispatcher("Admin");
 
                         view.forward(request, response);
@@ -112,12 +116,13 @@ public class Update extends HttpServlet {
                 }
                     break;
             }
-            case "record":
+            case "records":
             {
                     query += "records SET username = \"" +request.getParameter("username")+"\",type = \""+request.getParameter("type")+
                             "\", oriantation = \""+request.getParameter("oriantation")+
                             "\" WHERE rId = \""+request.getParameter("rId")+"\";";
                     if(connections.executeSet(query)){
+                        request.setAttribute("message", "record well updated");
                         RequestDispatcher view = request.getRequestDispatcher("Admin");
 
                         view.forward(request, response);
@@ -144,6 +149,7 @@ public class Update extends HttpServlet {
                 user.setUsername(request.getParameter("username"));
                 
                 if(user.save()){
+                    request.setAttribute("message", "user are added successifully");
                     RequestDispatcher view = request.getRequestDispatcher("Admin");
 
                         view.forward(request, response);
@@ -160,9 +166,11 @@ public class Update extends HttpServlet {
                 question.setRiasecType(request.getParameter("riasecType"));
                 question.setGroupOfQuestion(request.getParameter("groupOfQuestion"));
                 question.setTargetUser(request.getParameter("targetUser"));
+                question.setNameOfGroup(request.getParameter("nameOfGroup"));
                 
                 
                 if(question.save()){
+                    request.setAttribute("message", "question are well inserted");
                     RequestDispatcher view = request.getRequestDispatcher("Admin");
 
                         view.forward(request, response);
@@ -184,6 +192,7 @@ public class Update extends HttpServlet {
                 
                 
                 if(result.save()){
+                    request.setAttribute("message", "result are well saved");
                     RequestDispatcher view = request.getRequestDispatcher("Admin");
 
                         view.forward(request, response);
@@ -191,7 +200,7 @@ public class Update extends HttpServlet {
                 
                 break;
             }
-            case "record":
+            case "records":
             {
                 database.Records record = new database.Records();
                 
@@ -201,12 +210,82 @@ public class Update extends HttpServlet {
                 
                 
                 if(record.save()){
+                    request.setAttribute("message", "record are well added");
                     RequestDispatcher view = request.getRequestDispatcher("Admin");
 
                         view.forward(request, response);
                 }
                 
                 break;
+            }
+            
+        }
+        }
+        else if(operator.equals("delete")){
+            switch(tableName){
+            case "users":
+            {
+                query = "DELETE FROM users WHERE userId =\""+request.getParameter("userId")+"\";";
+                    
+                    if(connections.executeSet(query)){
+                        request.setAttribute("message", "user well updated");
+                        RequestDispatcher view = request.getRequestDispatcher("Admin");
+
+                        view.forward(request, response);
+                    }
+                    else{
+                        PrintWriter out = response.getWriter();
+                        out.print(query);
+                }
+                    break;
+            }
+            case "questions":
+            {
+                query = "DELETE FROM questions WHERE qId =\""+request.getParameter("qId")+"\";";
+                    
+                    if(connections.executeSet(query)){
+                        request.setAttribute("message", "question well updated");
+                        RequestDispatcher view = request.getRequestDispatcher("Admin");
+
+                        view.forward(request, response);
+                    }
+                    else{
+                        PrintWriter out = response.getWriter();
+                        out.print(query);
+                }
+                    break;
+            }
+            case "results":
+            {
+                query = "DELETE FROM results WHERE rId =\""+request.getParameter("rId")+"\";";
+                    
+                    if(connections.executeSet(query)){
+                        request.setAttribute("message", "result well updated");
+                        RequestDispatcher view = request.getRequestDispatcher("Admin");
+
+                        view.forward(request, response);
+                    }
+                    else{
+                        PrintWriter out = response.getWriter();
+                        out.print(query);
+                }
+                    break;
+            }
+            case "records":
+            {
+                query = "DELETE FROM records WHERE rId =\""+request.getParameter("rId")+"\";";
+                    
+                    if(connections.executeSet(query)){
+                        request.setAttribute("message", "record well updated");
+                        RequestDispatcher view = request.getRequestDispatcher("Admin");
+
+                        view.forward(request, response);
+                    }
+                    else{
+                        PrintWriter out = response.getWriter();
+                        out.print(query);
+                }
+                    break;
             }
             
         }

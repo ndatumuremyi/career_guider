@@ -24,8 +24,8 @@ public class Logout extends HttpServlet {
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.removeAttribute("user");
-             
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/home");
+             request.setAttribute("message", "sucessiful logout");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/HomePage");
             dispatcher.forward(request, response);
         }
     }

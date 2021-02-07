@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -24,8 +25,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author paterne
  */
-public class Interview extends HttpServlet {
-
+public class FinalQuestions extends HttpServlet {
+    database.Connections operation = new database.Connections();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -49,11 +50,11 @@ public class Interview extends HttpServlet {
 //            out.println("<h1>Servlet Interview at " + request.getContextPath() + "</h1>");
 //            out.println("</body>");
 //            out.println("</html>");
-        database.Connections operation = new database.Connections();
+         
         int start = 0;
         int prevStart;
         
-        int count = 7;
+        int count = 2;
         int page = 1;
         int totalRows=0;
         int totalPages;
@@ -65,7 +66,9 @@ public class Interview extends HttpServlet {
         
         HttpSession session = request.getSession(false);
         database.Users user = (database.Users)  session.getAttribute("user");
-        ResultSet result = operation.executeGet("SELECT COUNT(*) As nRows FROM questions where groupOfQuestion = '1' ;");
+        user.findResults();
+        String maxType = user.result.findMaximum();
+        ResultSet result = operation.executeGet("SELECT COUNT(*) As nRows FROM questions where groupOfQuestion = '2' and riasecType = \""+maxType+"\" ;");
         try {
             while (result.next()) {
                 totalRows = Integer.parseInt(result.getString("nRows"));
@@ -99,14 +102,15 @@ public class Interview extends HttpServlet {
             
             
             if(totalRows >= start){
-                questions = operation.selectAll("questions", start, count);
-//                questions = operation.selectAllQuestions(start, count, 1);
+//                questions = operation.selectAll("questions", start, count);
+                questions = operation.selectAllQuestions(start, count, maxType);
+                
                 
             }
             
             if(!(page == 1 && prevPage == 1)){
-                prevQuestions = operation.selectAll("questions",prevStart,count);
-//                prevQuestions = questions = operation.selectAllQuestions(prevStart, count, 1);
+//                prevQuestions = operation.selectAll("questions",prevStart,count);
+                prevQuestions = operation.selectAllQuestions(prevStart, count, maxType);
             }
             
             
@@ -131,6 +135,7 @@ public class Interview extends HttpServlet {
         }
         }catch(NullPointerException e){
             System.out.println();
+            e.printStackTrace();
             System.out.println("null pointer");
         }
         
@@ -140,11 +145,19 @@ public class Interview extends HttpServlet {
         request.setAttribute("questions", questions);
         request.setAttribute("totalPages", totalPages);
         request.setAttribute("prevPage", page);
-        RequestDispatcher view = request.getRequestDispatcher("Interview.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("FinalQuestions.jsp");
         view.forward(request, response);
         }
         else if(submit.equals("finish")){
-            RequestDispatcher view = request.getRequestDispatcher("Compute");
+            RequestDispatcher view = request.getRequestDispatcher("/DashBoard");
+            
+            
+            
+            
+            user.findResults();
+            String max = user.result.findMaximum();
+            
+            findNameOfGroup(user,max);
             view.forward(request, response);
         }
         
@@ -191,5 +204,88 @@ public class Interview extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+    
+    public void findNameOfGroup(database.Users user, String type){
+        String query = "SELECT * FROM questions WHERE riasecType = \""+type +"\" and groupOfQuestion = '2' ;";
+        ResultSet output = operation.executeGet(query);
+        Questions question = new Questions();
+        ArrayList<Questions> questions = new ArrayList<>();
+        
+        HashMap<String, Integer>nameOfGroupCount = new HashMap<>();
+        try {
+            while(output.next()){
+                question.setGroupOfQuestion(output.getString("groupOfQuestion"));
+                question.setNameOfGroup(output.getString("nameOfGroup"));
+                question.setQId(output.getString("qId"));
+                question.setQuestion(output.getString("question"));
+                question.setRiasecType(output.getString("riasecType"));
+                question.setTargetUser(output.getString("targetUser"));
+                
+                
+                questions.add(question);
+            }
+            for(Questions questiona : questions){
+               System.out.println(questiona.getQuestion());
+            }
+            
+            questions.forEach((qtn) ->{
+                qtn.findAnswer(user.getUsername());
+            });
+            questions.forEach(qtn ->{
+                if(qtn.getAnswer().getAnswers().equals("true")){
+                    System.out.println("===============this is name of group "+ qtn.getNameOfGroup());
+                    System.out.println("===============this is name of quetion "+ qtn.getQuestion());
+                    if(nameOfGroupCount.containsKey(qtn.getNameOfGroup())){
+                    Integer value = nameOfGroupCount.get(qtn.getNameOfGroup());
+                    value += 1;
+                    nameOfGroupCount.put(qtn.getNameOfGroup(), value);
+                }
+                else{
+                    nameOfGroupCount.put(qtn.getNameOfGroup(), 1);
+                }
+                }
+                
+                
+            });
+            System.out.println("......................................................................");
+            System.out.println("......................................................................");
+            System.out.println("......................................................................");
+            System.out.println(nameOfGroupCount);
+            
+            
+            String maxKey ="not yet" ;
+            Integer maxValue = 0;
+            
+            for(HashMap.Entry<String,Integer> entry : nameOfGroupCount.entrySet() ){
+                System.out.println("this is key and value "+ entry);
+                if(maxValue.compareTo(entry.getValue()) < 0){
+                    maxValue = entry.getValue() ;
+                    
+                    
+                    maxKey = entry.getKey();
+                   
+                }
+            }
+            
+            query = "select * from records where username = \"" +user.getUsername() +"\"";
+            
+            
+            ResultSet output2 = operation.executeGet(query);
+            boolean isAlreadyIn = false;
+            if(output2.next()){
+                operation.executeSet("DELETE FROM records where username = \""+user.getUsername()+"\";");
+            }
+            
+            database.Records record = new database.Records();
+            
+            record.setOriantation(maxKey);
+            record.setType(type);
+            
+            record.setUsername(user.getUsername());
+            record.save();
+        } catch (SQLException ex) {
+            Logger.getLogger(FinalQuestions.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
+}
 }

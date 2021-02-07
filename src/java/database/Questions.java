@@ -20,13 +20,14 @@ public class Questions extends Table{
     private String riasecType;
     private String  groupOfQuestion;
     private String targetUser;
+    private String nameOfGroup;
     
     private Answers answer;
     
     public Questions(){
         super.tableName = "questions";
     }
-    public Questions(String qId,String question,String riasecType, String groupOfQuestion, String targetUser){
+    public Questions(String qId,String question,String riasecType, String groupOfQuestion, String targetUser, String nameOfGroup){
         super.tableName = "questions";
         
         cvalues.put("qId", qId);
@@ -34,6 +35,7 @@ public class Questions extends Table{
         cvalues.put("riasecType", riasecType);
         cvalues.put("groupOfQuestion", groupOfQuestion);
         cvalues.put("targetUser", targetUser);
+        cvalues.put("nameOfGroup",nameOfGroup);
         
         
         this.qId = qId;
@@ -41,6 +43,7 @@ public class Questions extends Table{
         this.riasecType = riasecType;
         this.groupOfQuestion = groupOfQuestion;
         this.targetUser = targetUser;
+        this.nameOfGroup = nameOfGroup;
     }
     public void setQId(String qId){
         cvalues.put("qId", qId);
@@ -82,6 +85,14 @@ public class Questions extends Table{
     public String getTargetUser (){
         return targetUser;
     }
+    public String getNameOfGroup(){
+        return nameOfGroup;
+    }
+    public void setNameOfGroup(String nameOfGroup){
+        cvalues.put("nameOfGroup", nameOfGroup);
+        
+        this.nameOfGroup = nameOfGroup;
+    }
     public Answers getAnswer(){
         return this.answer;
     }
@@ -109,6 +120,22 @@ public class Questions extends Table{
         
         answer.save();
     }
+    public void findAnswer(String username){
+        answer = new Answers();
+        ResultSet output = operation.findAnd(new ConditionalData("answers","questions",this.qId),new ConditionalData("answers","username",username));
+        
+        try {
+            if(output.next()){
+                answer.setUsername(output.getString("username"));
+                answer.setQuestions(output.getString("questions"));
+                answer.setAnswers(output.getString("answers"));
+                answer.setAnId(output.getString("anId"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Questions.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     
     
 }

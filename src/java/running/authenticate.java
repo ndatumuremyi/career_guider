@@ -94,8 +94,9 @@ public class authenticate extends HttpServlet {
                 
             }
             else{
+                request.setAttribute("message", "Fail to login , please try again");
                 user = null;
-                destination = "HomePage.jsp";
+                destination = "Login.jsp";
                 
             }
             

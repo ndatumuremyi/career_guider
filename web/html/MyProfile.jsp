@@ -1,6 +1,6 @@
 <%-- 
-    Document   : Register
-    Created on : Jan 20, 2021, 9:26:59 AM
+    Document   : MyProfile
+    Created on : Feb 6, 2021, 7:15:16 PM
     Author     : paterne
 --%>
 
@@ -10,17 +10,40 @@
     <head>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+        
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
         <title>JSP Page</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css?24">
     </head>
     <body>
         <div class="container-fluid">
+            
+            
+            
+            
+            <%
+                String message = (String)request.getAttribute("message");
+                if(message != null){
+                    %>
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong><span class="fa fa-info"></span></strong> <%= message %> 
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <%
+                }
+                %>
+            
+            
+            
+            
+            
+            
             <div class="title">
                 <h1>Welcome to Career guider</h1>
             </div>
@@ -43,11 +66,11 @@
                             <a href="" data-toggle="modal" data-target= "#loginModal">
                                 <span class="fa fa-sign-in"></span> Login
                             </a>
-
+                            
                         </span>
                         <span class="navbar-text">
-                            <a href="#">
-
+                            <a href="/career_guidance/Register">
+                                
                                 <span class="ml-3 fa fa-user-plus"></span> Register
                             </a>
                         </span>
@@ -66,7 +89,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="row">
-
+                                
                             </div>
                             <form action="">
                                 <div class="form-row">
@@ -97,75 +120,12 @@
 
             <div>
 
-                <div class="row ">
-                    <div class="discr col-6 p-3 offset-3">
-                        <div class="register">
-
-                            <form action="">
-                                <div id="form-title">
-                                    <h6 class="p-3"> fill all forms with true informations</h6>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-sm-5 offset-1">
-                                        <input type="text" class="form-control form-control-sm mr-1" id="firstName" placeholder="Enter First Name">
-                                    </div>
-                                    <div class="form-group col-sm-5 offset-1">
-                                        <input type="text" class="form-control form-control-sm mr-1" id="secondName" placeholder="Enter Second Name">
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group  col-2 offset-1">
-                                        <input type="radio" name="sex" id="male" class="form-check-input" >
-                                        <label for="male" class="form-check-label">male</label>
-                                    </div>
-                                    <div class="form-group col-2">
-                                        <input type="radio" name="sex" id="female" class="form-check-input" >
-                                        <label for="male" class="form-check-label">female</label>
-                                    </div>
-
-                                    <div class="form-group col-sm-7">
-                                        <input type="email" class="form-control form-control-sm mr-1" id="email" placeholder="Enter email">
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-sm-5 offset-1">
-                                        <select class="form-control" name="Status">
-                                            <option>
-                                                choose your status
-                                            </option>
-                                            <option>
-                                                am Student
-                                            </option>
-                                            <option>
-                                                am Parent
-                                            </option>
-                                            <option>
-                                                am Trainer
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-sm-5 offset-1">
-                                        <%
-                                            
-                                            %>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-sm-5 offset-1">
-                                        <input type="password" class="form-control form-control-sm mr-1" id="password" placeholder="Enter Password">
-                                    </div>
-                                    <div class="form-group col-sm-5 offset-1">
-                                        <input type="password" class="form-control form-control-sm mr-1" id="confirmpassword" placeholder="Confirm Your Password">
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <button type="button" class="btn btn-secondary btn-sm ml-auto" data-dismiss="reset">reset</button>
-                                    <button type="submit" class="btn btn-warning btn-sm ml-1">Sign in</button>
-                                </div>
-                            </form>
-                        </div>
+                <div class="row">
+                    <div class="discr col-8 p-3 offset-auto">
+                        <p class="">You are struggling
+                            to find a career path and 
+                            need some inspiration?</p>
                     </div>
-
                 </div>
             </div>
             <footer class="footer bg-sucess">
@@ -216,6 +176,6 @@
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/popper.min.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/test.js"></script>
-
+    
     </body>
 </html>

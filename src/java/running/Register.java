@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author paterne
  */
-public class HomePage extends HttpServlet {
+public class Register extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,7 +28,37 @@ public class HomePage extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String register = request.getParameter("register");
+        RequestDispatcher view;
+
+        if (register == null) {
+            view = request.getRequestDispatcher("html/Register.jsp");
+            view.forward(request, response);
+        } else {
+            database.Users user = new database.Users();
+
+            user.setEmail(request.getParameter("email"));
+            user.setFirstName(request.getParameter("firstName"));
+            user.setLastName(request.getParameter("lastName"));
+            user.setPassword(request.getParameter("password"));
+            user.setTypeOfUser(request.getParameter("typeOfUser"));
+            user.setUsername(request.getParameter("username"));
+
+            if (user.save()) {
+                request.setAttribute("message", "you are now registed , you can login now ");
+                view = request.getRequestDispatcher("/HomePage");
+                view.forward(request, response);
+                
+            } else {
+                request.setAttribute("message", "fail to register. you can try again ");
+                view = request.getRequestDispatcher("html/Register.jsp");
+                view.forward(request, response);
+            }
+
+        }
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -43,11 +72,7 @@ public class HomePage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("myname", "paterne");
-        RequestDispatcher view = request.getRequestDispatcher("HomePage.jsp");
-        view.forward(request, response);
-        PrintWriter out = response.getWriter();
-        out.println("it works");
+        processRequest(request, response);
     }
 
     /**
@@ -61,7 +86,7 @@ public class HomePage extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        processRequest(request, response);
     }
 
     /**

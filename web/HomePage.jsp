@@ -17,10 +17,33 @@
         <title>JSP Page</title>
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/font-awesome.min.css">
-        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/main.css"><link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css?21">
     </head>
     <body>
         <div class="container-fluid">
+            
+            <%
+                String message = (String)request.getAttribute("message");
+                if(message != null){
+                    %>
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong><span class="fa fa-info"></span></strong> <%= message %> 
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <%
+                }
+                %>
+            
+            
+            
+            
+            
+            
+            
+            
+            
             <div class="title">
                 <h1>Welcome to Career guider</h1>
             </div>
@@ -46,7 +69,7 @@
                             
                         </span>
                         <span class="navbar-text">
-                            <a href="#">
+                            <a href="/career_guidance/Register">
                                 
                                 <span class="ml-3 fa fa-user-plus"></span> Register
                             </a>
@@ -95,8 +118,8 @@
                 </div>
             </div>
 
-            <div>
-
+            <div class="contents">
+               
                 <div class="row">
                     <div class="discr col-4 p-3 offset-1">
                         <p class="">You are struggling

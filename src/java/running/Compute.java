@@ -54,8 +54,9 @@ public class Compute extends HttpServlet {
         
         result.setUsername(user.getUsername());
         
+        for(database.Answers answer : answers){
+            
         
-        answers.forEach((answer) ->{
             String type = answer.getQuestion().getRiasecType();
             String groupOfQuestion = answer.getQuestion().getGroupOfQuestion();
             String ans = answer.getAnswers();
@@ -118,7 +119,7 @@ public class Compute extends HttpServlet {
                 }
                 }
             }
-        });
+        }
         if(artisticTotal == 0){
             result.setArtistic(Integer.toString(0));
         }
@@ -177,7 +178,8 @@ public class Compute extends HttpServlet {
         
         if(result.save()){
             
-            System.out.println("int work");
+//            System.out.println("int work");
+            request.setAttribute("message", "result are well saved");
             request.setAttribute("result", result);
         }
         

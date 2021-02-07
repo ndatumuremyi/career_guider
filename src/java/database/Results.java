@@ -24,6 +24,21 @@ public class Results extends Table{
     private String artistic;
     private String conventional;
     
+    
+    
+    
+    private int realisticInt;
+    private int socialInt;
+    private int investigativeInt;
+    private int enterprisingInt;
+    private int artisticInt;
+    private int conventionalInt;
+    
+    
+    
+    
+    
+    
     private Users user;
     public Results(){
         super.tableName = "results";
@@ -127,6 +142,40 @@ public class Results extends Table{
             }
         } catch (SQLException ex) {
             Logger.getLogger(Results.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public String findMaximum(){
+        
+        this.realisticInt = Integer.parseInt(this.realistic);
+        this.artisticInt = Integer.parseInt(this.artistic);
+        this.conventionalInt = Integer.parseInt(this.conventional);
+        this.enterprisingInt = Integer.parseInt(this.enterprising);
+        this.investigativeInt = Integer.parseInt(this.investigative);
+        this.socialInt = Integer.parseInt(this.social);
+        
+        if(realisticInt >= artisticInt && realisticInt >= conventionalInt &&realisticInt >= enterprisingInt && realisticInt >= investigativeInt && realisticInt >= socialInt){
+            return "realistic";
+        }
+        else if(artisticInt >= realisticInt && artisticInt >= conventionalInt &&artisticInt >= enterprisingInt && artisticInt >= investigativeInt && artisticInt >= socialInt){
+        
+            return "artistic";
+        }
+        else if(conventionalInt >= artisticInt && conventionalInt >= realisticInt &&conventionalInt >= enterprisingInt && conventionalInt >= investigativeInt && conventionalInt >= socialInt){
+         
+            return "conventional";
+        }
+        else if(enterprisingInt >= artisticInt && enterprisingInt >= conventionalInt &&enterprisingInt >= realisticInt && enterprisingInt >= investigativeInt && enterprisingInt >= socialInt){
+            return "enterprising";
+    }
+        else if(investigativeInt >= artisticInt && investigativeInt >= conventionalInt &&investigativeInt >= realisticInt && investigativeInt >= enterprisingInt && investigativeInt >= socialInt){
+            return "investigative";
+    }
+        
+        else if(socialInt >= artisticInt && socialInt >= conventionalInt &&socialInt >= realisticInt && socialInt >= investigativeInt && socialInt >= enterprisingInt){
+            return "socialInt";
+    }
+        else{
+            return "realistic";
         }
     }
 }

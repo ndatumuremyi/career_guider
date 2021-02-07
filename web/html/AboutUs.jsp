@@ -10,17 +10,41 @@
     <head>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        
+
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
         <title>JSP Page</title>
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/font-awesome.min.css">
-        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css?24">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/rotating-card.css">
     </head>
     <body>
         <div class="container-fluid">
+
+
+
+
+            <%
+                String message = (String) request.getAttribute("message");
+                if (message != null) {
+            %>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong><span class="fa fa-info"></span></strong> <%= message%> 
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <%
+                }
+            %>
+
+
+
+
+
+
             <div class="title">
                 <h1>Welcome to Career guider</h1>
             </div>
@@ -43,11 +67,11 @@
                             <a href="" data-toggle="modal" data-target= "#loginModal">
                                 <span class="fa fa-sign-in"></span> Login
                             </a>
-                            
+
                         </span>
                         <span class="navbar-text">
-                            <a href="#">
-                                
+                            <a href="/career_guidance/Register">
+
                                 <span class="ml-3 fa fa-user-plus"></span> Register
                             </a>
                         </span>
@@ -66,7 +90,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="row">
-                                
+
                             </div>
                             <form action="">
                                 <div class="form-row">
@@ -95,13 +119,27 @@
                 </div>
             </div>
 
-            <div>
+            <div class="contents">
 
                 <div class="row">
-                    <div class="discr col-8 p-3 offset-auto">
-                        <p class="">You are struggling
-                            to find a career path and 
-                            need some inspiration?</p>
+
+                    <div class="col-12 col-sm-4">
+                        <div class="shadow-none p-3 mb-5 bg-warning rounded ml-3">
+                            
+                        </div>
+
+                    </div>
+                    <div class="col-12 col-sm-4 ">
+                        <div class="shadow-none p-3 mb-5 bg-warning rounded">
+                            <p>this paragraph is for testing this page. only for that , if it finish to test it will be erased by developer</p>
+                        </div>
+
+                    </div>
+                    <div class="col-12 col-sm-4 ">
+                        <div class="shadow-none p-3 mb-5 bg-warning rounded mr-3">
+                            <p>this paragraph is for testing this page. only for that , if it finish to test it will be erased by developer</p>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -153,6 +191,6 @@
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/popper.min.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/test.js"></script>
-    
+
     </body>
 </html>

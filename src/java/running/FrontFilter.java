@@ -34,7 +34,7 @@ public class FrontFilter implements Filter {
     private HttpServletRequest httpRequest;
  
     private static final String[] loginRequiredURLs = {
-            "/DashBoard", "/Interview"
+            "/DashBoard", "/Interview", "/Admin", "/FinalQuestions"
     };
 //    , "/Admin"
  
@@ -53,19 +53,19 @@ public class FrontFilter implements Filter {
  
         boolean isLoggedIn = (session != null && session.getAttribute("user") != null);
  
-        String loginURI = httpRequest.getContextPath() + "/home";
+        String loginURI = httpRequest.getContextPath() + "/HomePage";
         boolean isLoginRequest = httpRequest.getRequestURI().equals(loginURI);
         boolean isLoginPage = httpRequest.getRequestURI().endsWith("login.jsp");
  
         if (isLoggedIn && (isLoginRequest || isLoginPage)) {
             // the user is already logged in and he's trying to login again
             // then forward to the homepage
-            httpRequest.getRequestDispatcher("/home").forward(request, response);
+            httpRequest.getRequestDispatcher("/HomePage").forward(request, response);
  
         } else if (!isLoggedIn && isLoginRequired()) {
             // the user is not logged in, and the requested page requires
             // authentication, then forward to the login page
-            String loginPage = "/home";
+            String loginPage = "/HomePage";
             RequestDispatcher dispatcher = httpRequest.getRequestDispatcher(loginPage);
             dispatcher.forward(request, response);
         } else {

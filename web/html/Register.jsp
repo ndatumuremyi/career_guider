@@ -1,6 +1,6 @@
 <%-- 
-    Document   : dashBoard
-    Created on : Jan 31, 2021, 5:14:31 PM
+    Document   : Register
+    Created on : Feb 4, 2021, 10:48:37 AM
     Author     : paterne
 --%>
 
@@ -10,17 +10,19 @@
     <head>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+        
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
         <title>JSP Page</title>
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css?28">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css?4">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css?2">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css?18">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Login.css?12">
     </head>
     <body>
         <div class="container-fluid">
+            
             
             
             
@@ -38,6 +40,7 @@
                     <%
                 }
                 %>
+            
             
             
             
@@ -62,94 +65,98 @@
 
                         </ul>
                         <span class="navbar-text">
-                            <a href="/career_guidance/logout">
-                                <span class="fa fa-sign-in"></span> Logout
+                            <a href="" data-toggle="modal" data-target= "#loginModal">
+                                <span class="fa fa-sign-in"></span> Login
                             </a>
-
+                            
                         </span>
                         <span class="navbar-text">
                             <a href="#">
-
-                                <span class="ml-3 fa fa-user-plus"></span> Profile
+                                
+                                <span class="ml-3 fa fa-user-plus"></span> Register
                             </a>
                         </span>
                     </div>
 
                 </div>
             </nav>
-
+            
 
             <div class="contents">
-
-                <div class="row">
-                    <div>
-                        <h1>DashBoard</h1>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-sm-6">
-                        <div class="">
-
-                            <div class="card">
-                                <h3 class="card-header bg-primary text-white"> Results </h3>
-                                <div class="card-body">
-                                    <dl class="row">
-                                        <%
-                                            try {
-                                                database.Results result = (database.Results) request.getAttribute("result");
-
-                                                if (request.getAttribute("result") != null) {
-
-
-                                        %>
-                                        <dt class="col-6"> In Artistic </dt>
-                                        <dd class="col-6"><%= result.getArtistic()%> % </dd>
-                                        <dt class="col-6">In Conventional</dt>
-                                        <dd class="col-6"><%= result.getConventional()%> % </dd>
-                                        <dt class="col-6">In Enterprising </dt>
-                                        <dd class="col-6"><%= result.getEnterprising()%> % </dd>
-                                        <dt class="col-6">In Investigative</dt>
-                                        <dd class="col-6"><%= result.getInvestigative()%> % </dd>
-                                        <dt class="col-6">In Realistic</dt>
-                                        <dd class="col-6"><%= result.getRealistic()%> % </dd>
-                                        <dt class="col-6">In Social</dt>
-                                        <dd class="col-6"><%= result.getSocial()%> % </dd>
-                                        <%
-                                                } else {
-                                                    %>
-                                                    <dd><b>take interview first</b></dd>
-                                                    <%
-                                                }
-                                            } catch (Exception e) {
-
-                                            }
-                                        %>
-                                    </dl>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-6">
-                        <div class="">
-                            <div class="card">
-                                <h3 class="card-header bg-primary text-white">Facts at a Glance</h3>
-                                <div class="card-body">
-                                    <dl class="row">
-                                        <dt class="col-6">Started</dt>
-                                        <dd class="col-6">3 Feb. 2013</dd>
-                                        <dt class="col-6">Major Stake Holder</dt>
-                                        <dd class="col-6">HK Fine Foods Inc.</dd>
-                                        <dt class="col-6">Last Year's Turnover</dt>
-                                        <dd class="col-6">$1,250,375</dd>
-                                        <dt class="col-6">Employees</dt>
-                                        <dd class="col-6">40</dd>
-                                    </dl>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div class="container">
+		<div class="d-flex justify-content-center">
+			<div class="register_card">
+				
+				<div class="d-flex justify-content-center form_container">
+                                    <form action="Register" method="post">
+						<div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fa fa-envelope"></i></span>
+							</div>
+							<input type="email" name="email" class="form-control input_user" value="" placeholder="Email">
+						</div>
+                                        <div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fa fa-id-card"></i></span>
+							</div>
+							<input type="text" name="firstName" class="form-control input_user" value="" placeholder="First Name">
+						</div>
+                                        <div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fa fa-id-card-o"></i></span>
+							</div>
+							<input type="text" name="lastName" class="form-control input_user" value="" placeholder="Last Name">
+						</div>
+                                        <div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fa fa-user"></i></span>
+							</div>
+							<input type="text" name="username" class="form-control input_user" value="" placeholder="username">
+						</div>
+                                        <div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fa fa-user-circle"></i></span>
+							</div>
+                                            <select class="form-control input_user" name="typeOfUser">
+                                                <option>s3</option>
+                                                <option>s6</option>
+                                                <option>Job seeker</option>
+                                            </select>
+						</div>
+						<div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fa fa-key"></i></span>
+							</div>
+							<input type="password" name="password" class="form-control input_pass" value="" placeholder="password">
+						</div>
+                                                <div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fa fa-check"></i></span>
+							</div>
+							<input type="password" name="confirmPassword" class="form-control input_pass" value="" placeholder="Confirm password">
+						</div>
+						<div class="form-group">
+							<div class="custom-control custom-checkbox">
+								<input type="checkbox" class="custom-control-input" id="customControlInline">
+								<label class="custom-control-label" for="customControlInline">Remember me</label>
+							</div>
+						</div>
+							<div class="d-flex justify-content-center mt-3 login_container">
+                                                            <button type="submit" name="register" class="btn login_btn" value="register"><span class="fa fa-user-plus"></span> Register</button>
+				   </div>
+					</form>
+				</div>
+		
+				<div class="mt-4">
+					<div class="d-flex justify-content-center links">
+						already have an account? <a class="nav-link" href="Login.jsp"><span class="ml-3 fa fa-sign-in"></span> Login</a>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+                
             </div>
             <footer class="footer bg-sucess">
                 <div class="container">
@@ -199,6 +206,6 @@
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/popper.min.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/test.js"></script>
-
+    
     </body>
 </html>

@@ -23,10 +23,30 @@
         <title>Admin page</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css?28">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css?24">
     </head>
     <body>
         <div class="container-fluid">
+            
+            
+            
+            <%
+                String message = (String)request.getAttribute("message");
+                if(message != null){
+                    %>
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong><span class="fa fa-info"></span></strong> <%= message %> 
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <%
+                }
+                %>
+            
+            
+            
+            
             <div class="title">
                 <h1>Admin panel</h1>
             </div>
@@ -46,60 +66,21 @@
 
                         </ul>
                         <span class="navbar-text">
-                            <a href="" data-toggle="modal" data-target= "#loginModal">
-                                <span class="fa fa-sign-in"></span> Login
+                            <a href="/career_guidance/Logout">
+                                <span class="fa fa-sign-in"></span> Logout
                             </a>
 
                         </span>
                         <span class="navbar-text">
                             <a href="#">
 
-                                <span class="ml-3 fa fa-user-plus"></span> Register
+                                <span class="ml-3 fa fa-user"></span> My Profile
                             </a>
                         </span>
                     </div>
 
                 </div>
             </nav>
-            <div id="loginModal" class="modal fade" role="dialog">
-                <div class="modal-dialog modal-lg" role="content">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Login</h4>
-                            <button type="button" class="close" data-dismiss="modal">
-                                &times;
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-
-                            </div>
-                            <form action="">
-                                <div class="form-row">
-                                    <div class="form-group col-sm-4">
-                                        <label for="exampleInputEmail3" class="sr-only">Password</label>
-                                        <input type="email" class="form-control form-control-sm mr-1" id="exampleInputEmail3" placeholder="Enter email">
-                                    </div>
-                                    <div class="form-group col-sm-4">
-                                        <label class="sr-only" for="exampleInputPassword3"></label>
-                                        <input type="password" class="form-control form-control-sm mr-1" id="exampleInputPassword3" placeholder="Passowrd">
-                                    </div>
-                                    <div class="col-sm-auto">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" >
-                                            <label class="form-check-label" for="">Remember me</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <button type="button" class="btn btn-secondary btn-sm ml-auto" data-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-warning btn-sm ml-1">Sign in</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
             
             
             
@@ -328,7 +309,7 @@
                                                         <label for="tableName" class="sr-only" >submit from</label>
                                                     </div>
                                                     <div class="form-group col-sm-8">
-                                                        <input type="hidden" class="" name="tableName" id="tableName" value="record">
+                                                        <input type="hidden" class="" name="tableName" id="tableName" value="records">
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
@@ -435,6 +416,14 @@
                                                     </div>
                                                     <div class="form-group col-sm-8">
                                                         <input type="text" class="" name="targetUser" id="targetUserTE">
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-4">
+                                                        <label for="nameOfGroup" class="">name of group</label>
+                                                    </div>
+                                                    <div class="form-group col-sm-8">
+                                                        <input type="text" class="" name="nameOfGroup" id="nameOfGroupTE">
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
@@ -763,7 +752,9 @@
                                                         <th>Type of question</th>
                                                         <th>group Of Question</th>
                                                         <th> Target User</th>
+                                                        <th>nameOfGroup</th>
                                                         <th>Operations</th>
+                                                        
 
                                                     </tr>
 
@@ -790,6 +781,9 @@
                                                         </td>
                                                         <td>
                                                             <%= question.getTargetUser()%>
+                                                        </td>
+                                                        <td>
+                                                            <%= question.getNameOfGroup() %>
                                                         </td>
                                                         <td>
                                                             <div class="btn-group" role="group">
@@ -1093,6 +1087,45 @@
                 
                 
                 
+                var deleteU = $(".deleteUser");
+                deleteU.click(function () {
+                    $("#changeUser").show();
+                $("#addUserFinal").hide();
+                $("#operatorForUser").attr("value","delete");
+                    var id = $(this).attr("id");
+                    $(".trOfData").each(function () {
+                        var trId = $(this).attr("id");
+                        if (trId.includes(id)) {
+                            var condit = "#" + trId + " td";
+//                           var tr= $(condit).eq(1).text();
+//                           var userId = tr.trim();
+//                             $("#usernameTE").val(userId);
+                            $("#userIdTE").val($.trim($(condit).eq(0).text()));
+                            $("#usernameTE").val($.trim($(condit).eq(1).text()));
+                            $("#passwordTE").val($.trim($(condit).eq(2).text()));
+                            $("#firstNameTE").val($.trim($(condit).eq(3).text()));
+                            $("#lastNameTE").val($.trim($(condit).eq(4).text()));
+                            $("#emailTE").val($.trim($(condit).eq(5).text()));
+                            $("#typeOfUserTE").val($.trim($(condit).eq(6).text()));
+
+//                           
+//                           
+
+                        }
+                    });
+
+                    $("#EditUserModal").modal('show');
+
+
+                });
+                
+                
+                
+                
+                
+                
+                
+                
                 
                 
                 
@@ -1135,6 +1168,7 @@
                             $("#riasecTypeTE").val($.trim($(condit).eq(2).text()));
                             $("#groupOfQuestionTE").val($.trim($(condit).eq(3).text()));
                             $("#targetUserTE").val($.trim($(condit).eq(4).text()));
+                            $("#nameOfGroupTE").val($.trim($(condit).eq(5).text()));
                             
 
 //                           
@@ -1149,6 +1183,42 @@
                 });
 
                 
+                
+                
+                
+                
+                var deleteQuestion = $(".deleteQuestion");
+                deleteQuestion.click(function () {
+                    $("#changeQuestion").show();
+                $("#addQuestionFinal").hide();
+                $("#operatorForQuestion").attr("value","delete");
+                
+                    var idForQuestion = $(this).attr("id");
+                    $(".trOfDataForQuestion").each(function () {
+                        var trId = $(this).attr("id");
+                        if (trId.includes(idForQuestion)) {
+                            var condit = "#" + trId + " td";
+//                           var tr= $(condit).eq(1).text();
+//                           var userId = tr.trim();
+//                             $("#usernameTE").val(userId);
+                            $("#qIdTE").val($.trim($(condit).eq(0).text()));
+                            $("#questionTE").val($.trim($(condit).eq(1).text()));
+                            $("#riasecTypeTE").val($.trim($(condit).eq(2).text()));
+                            $("#groupOfQuestionTE").val($.trim($(condit).eq(3).text()));
+                            $("#targetUserTE").val($.trim($(condit).eq(4).text()));
+                            $("#nameOfGroupTE").val($.trim($(condit).eq(5).text()));
+                            
+
+//                           
+//                           
+
+                        }
+                    });
+
+                    $("#EditQuestionModal").modal('show');
+
+
+                });
                 
                 
                 
@@ -1170,6 +1240,47 @@
                     $("#changeResult").show();
                 $("#addResultFinal").hide();
                 $("#operatorForResult").attr("value","update");
+                
+                    var idForResult = $(this).attr("id");
+                    $(".trOfDataForResult").each(function () {
+                        var trId = $(this).attr("id");
+                        if (trId.includes(idForResult)) {
+                            var condit = "#" + trId + " td";
+//                           var tr= $(condit).eq(1).text();
+//                           var userId = tr.trim();
+//                             $("#usernameTE").val(userId);
+                            $("#rIdTE").val($.trim($(condit).eq(0).text()));
+                            $("#usernameTE").val($.trim($(condit).eq(1).text()));
+                            $("#realisticTE").val($.trim($(condit).eq(2).text()));
+                            $("#socialTE").val($.trim($(condit).eq(3).text()));
+                            $("#investigativeTE").val($.trim($(condit).eq(4).text()));
+                            $("#enterprisingTE").val($.trim($(condit).eq(5).text()));
+                            $("#artisticTE").val($.trim($(condit).eq(6).text()));
+                            $("#conventionalTE").val($.trim($(condit).eq(7).text()));
+                            
+
+//                           
+//                           
+
+                        }
+                    });
+
+                    $("#EditResultModal").modal('show');
+
+
+                });
+                
+                
+                
+                
+                
+                
+                
+                var deleteResult = $(".deleteResult");
+                deleteResult.click(function () {
+                    $("#changeResult").show();
+                $("#addResultFinal").hide();
+                $("#operatorForResult").attr("value","delete");
                 
                     var idForResult = $(this).attr("id");
                     $(".trOfDataForResult").each(function () {
@@ -1256,6 +1367,45 @@
 
                 });
                 
+                
+                
+                
+                
+                
+                
+                
+                
+                var deleteRecord = $(".deleteRecord");
+                deleteRecord.click(function () {
+                    $("#changeRecord").show();
+                $("#addRecordFinal").hide();
+                $("#operatorForRecord").attr("value","delete");
+                
+                    var idForRecord = $(this).attr("id");
+                    $(".trOfDataForRecord").each(function () {
+                        var trId = $(this).attr("id");
+                        if (trId.includes(idForRecord)) {
+                            var condit = "#" + trId + " td";
+//                           var tr= $(condit).eq(1).text();
+//                           var userId = tr.trim();
+//                             $("#usernameTE").val(userId);
+                            $("#recordIdTE").val($.trim($(condit).eq(0).text()));
+                            $("#usernameForRecordTE").val($.trim($(condit).eq(1).text()));
+                            $("#typeTE").val($.trim($(condit).eq(2).text()));
+                            $("#oriantationTE").val($.trim($(condit).eq(3).text()));
+                            
+                            
+
+//                           
+//                           
+
+                        }
+                    });
+
+                    $("#EditRecordModal").modal('show');
+
+
+                });
                 
                 
                 

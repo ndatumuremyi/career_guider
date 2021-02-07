@@ -95,10 +95,11 @@ public class Answers extends Table {
         try {
             while(output.next()){
                 question.setQId(output.getString("qId"));
-                question.setGroupOfQuestion(output.getString("group"));
+                question.setGroupOfQuestion(output.getString("groupOfQuestion"));
                 question.setQuestion(output.getString("question"));
                 question.setRiasecType(output.getString("riasecType"));
                 question.setTargetUser(output.getString("targetUser"));
+                question.setNameOfGroup(output.getString("nameOfGroup"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(Results.class.getName()).log(Level.SEVERE, null, ex);

@@ -36,6 +36,22 @@
         <servlet-name>Compute</servlet-name>
         <servlet-class>running.Compute</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Register</servlet-name>
+        <servlet-class>running.Register</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MyProfile</servlet-name>
+        <servlet-class>running.MyProfile</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FinalQuetions</servlet-name>
+        <servlet-class>running.FinalQuetions</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FinalQuestions</servlet-name>
+        <servlet-class>running.FinalQuestions</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>
         <url-pattern>/HomePage</url-pattern>
@@ -71,6 +87,22 @@
     <servlet-mapping>
         <servlet-name>Compute</servlet-name>
         <url-pattern>/Compute</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Register</servlet-name>
+        <url-pattern>/Register</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyProfile</servlet-name>
+        <url-pattern>/MyProfile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FinalQuetions</servlet-name>
+        <url-pattern>/FinalQuetions</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FinalQuestions</servlet-name>
+        <url-pattern>/FinalQuestions</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

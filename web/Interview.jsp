@@ -23,6 +23,26 @@
     </head>
     <body>
         <div class="container-fluid">
+            
+            
+            
+            <%
+                String message = (String)request.getAttribute("message");
+                if(message != null){
+                    %>
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong><span class="fa fa-info"></span></strong> <%= message %> 
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <%
+                }
+                %>
+            
+            
+            
+            
             <div class="title">
                 <h1>Welcome to Career guider</h1>
             </div>
@@ -42,60 +62,22 @@
 
                         </ul>
                         <span class="navbar-text">
-                            <a href="" data-toggle="modal" data-target= "#loginModal">
-                                <span class="fa fa-sign-in"></span> Login
+                            <a href="/career_guidance/Logout">
+                                <span class="fa fa-sign-in"></span> Logout
                             </a>
 
                         </span>
                         <span class="navbar-text">
                             <a href="#">
 
-                                <span class="ml-3 fa fa-user-plus"></span> Register
+                                <span class="ml-3 fa fa-user"></span> My Profile
                             </a>
                         </span>
                     </div>
 
                 </div>
             </nav>
-            <div id="loginModal" class="modal fade" role="dialog">
-                <div class="modal-dialog modal-lg" role="content">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Login</h4>
-                            <button type="button" class="close" data-dismiss="modal">
-                                &times;
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-
-                            </div>
-                            <form action="authenticate" method="post">
-                                <div class="form-row">
-                                    <div class="form-group col-sm-4">
-                                        <label for="exampleInputEmail3" class="sr-only">Password</label>
-                                        <input type="email" class="form-control form-control-sm mr-1" id="email" name="email" placeholder="Enter email">
-                                    </div>
-                                    <div class="form-group col-sm-4">
-                                        <label class="sr-only" for="exampleInputPassword3"></label>
-                                        <input type="password" class="form-control form-control-sm mr-1" id="password" name="password" placeholder="Passowrd">
-                                    </div>
-                                    <div class="col-sm-auto">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" >
-                                            <label class="form-check-label" for="">Remember me</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <button type="button" class="btn btn-secondary btn-sm ml-auto" data-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-warning btn-sm ml-1">Sign in</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
 
             <div class="contents">
                 

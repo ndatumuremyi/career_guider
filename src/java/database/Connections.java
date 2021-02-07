@@ -20,42 +20,44 @@ import java.util.logging.Logger;
  * @author paterne
  */
 public class Connections {
+
     String values = "";
-    String columns ="";
-    
+    String columns = "";
+
     static Statement statement;
-    public Connections(){
-        try{
+
+    public Connections() {
+        try {
             Class.forName("com.mysql.jdbc.Driver");
-            
+
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/career", "scott", "tiger");
             statement = connection.createStatement();
             System.out.print("connection Succed");
-        }
-        
-        catch (ClassNotFoundException | SQLException ex){
-            System.out.println("fail to connect to database");
+        } catch (ClassNotFoundException | SQLException ex) {
+//            System.out.println("fail to connect to database");
         }
         //return null;
-        
+
     }
-    public static Statement getConnection(){
+
+    public static Statement getConnection() {
         return statement;
     }
-    public boolean executeSet(String query){
-        try{
+
+    public boolean executeSet(String query) {
+        try {
             System.out.println(query);
             statement.executeUpdate(query);
             return true;
-        }
-        catch (SQLException ex){
+        } catch (SQLException ex) {
             System.out.println(ex);
-              //  ex.printStackTrace(System.out);
-                
+            //  ex.printStackTrace(System.out);
+
             return false;
         }
     }
-    public ResultSet select(String tableName, String... columns){
+
+    public ResultSet select(String tableName, String... columns) {
         /*
         **********************************************************************************************************************
         **********************************************************************************************************************
@@ -64,26 +66,27 @@ public class Connections {
 
         **********************************************************************************************************************
         **********************************************************************************************************************
-        */
+         */
         String query = "select ";
-        
-        for(String column : columns){
-           query += column + ",";
+
+        for (String column : columns) {
+            query += column + ",";
         }
         query = query.substring(0, query.length() - 1);
-        query += "from "+tableName + ";";
+        query += "from " + tableName + ";";
         try {
             ResultSet output = statement.executeQuery(query);
             return output;
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(Connections.class.getName()).log(Level.SEVERE, null, ex);
-            
+
             System.out.println("fail to get data \n" + query);
             return null;
         }
     }
-    public boolean insert(String tableName, ArrayList<String> valiables,ArrayList<String> values){
+
+    public boolean insert(String tableName, ArrayList<String> valiables, ArrayList<String> values) {
         /*
     **********************************************************************************************************************
     **********************************************************************************************************************
@@ -92,35 +95,23 @@ public class Connections {
     
     **********************************************************************************************************************
     **********************************************************************************************************************
-    */
-        String query="insert into "+tableName+"(";
-        query = valiables.stream().map((variable) -> variable+',').reduce(query, String::concat);
-            query = query.substring(0, query.length()-1)+ ")values(\"";
-            for(String value : values){
-                query +=value +"\",\"";
-            }
-            query = query.substring(0, query.length()-2)+ ");";
-            if(executeSet(query)){
-                return true;
-            }
-            else{
-                return false;
-            }
-        
+         */
+        String query = "insert into " + tableName + "(";
+        query = valiables.stream().map((variable) -> variable + ',').reduce(query, String::concat);
+        query = query.substring(0, query.length() - 1) + ")values(\"";
+        for (String value : values) {
+            query += value + "\",\"";
+        }
+        query = query.substring(0, query.length() - 2) + ");";
+        if (executeSet(query)) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    public ResultSet executeGet(String query){
+
+    public ResultSet executeGet(String query) {
         /*
         ***************************************************************************************************************************
         ***************************************************************************************************************************
@@ -129,56 +120,43 @@ public class Connections {
         
         ***************************************************************************************************************************
         ***************************************************************************************************************************
-        */
+         */
         ResultSet output = null;
-        try{
+        try {
             output = statement.executeQuery(query);
-        }
-        catch(SQLException ex){
+        } catch (SQLException ex) {
             System.out.print("fail to select data");
 //            ex.printStackTrace(System.out);
         }
-        
+
         return output;
     }
-    
-    
-    
-    
+
     //this most used by save function in table class
-    public boolean insert(String tableName, HashMap<String, String> cvalues){
-        
-        String query="insert into "+tableName+"(";
-        
-        cvalues.forEach((key, value)->{
-            columns += key +",";
+    public boolean insert(String tableName, HashMap<String, String> cvalues) {
+
+        String query = "insert into " + tableName + "(";
+
+        cvalues.forEach((key, value) -> {
+            columns += key + ",";
             values += value + "\",\"";
         });
-        columns = columns.substring(0, columns.length()-1);
-        values = values.substring(0, values.length()-2);
-        query += columns + ")values(\""+ values + ");";
-        
+        columns = columns.substring(0, columns.length() - 1);
+        values = values.substring(0, values.length() - 2);
+        query += columns + ")values(\"" + values + ");";
+
         System.out.println(query);
-        
+
         columns = values = "";
-        if(executeSet(query)){
+        if (executeSet(query)) {
             return true;
-        }
-        else{
+        } else {
             return false;
         }
-        
-        
-        
-        
+
     }
-    
-    
-    
-    
-    
-    
-    public ArrayList selectAll(String tableName){
+
+    public ArrayList selectAll(String tableName) {
         /*
         **********************************************************************************************************************
         **********************************************************************************************************************
@@ -187,49 +165,42 @@ public class Connections {
 
         **********************************************************************************************************************
         **********************************************************************************************************************
-        */
+         */
 
-        
-        
-        
-        
-        String query = "select * from "+ tableName +";";
+        String query = "select * from " + tableName + ";";
         ResultSet output = executeGet(query);
 //        ResultSetMetaData metaData = output.getMetaData();
-        
+
         switch (tableName) {
-            case "questions":
-            {
-                
+            case "questions": {
+
                 ArrayList<Questions> result = new ArrayList<>();
                 try {
-                    while(output.next()){
+                    while (output.next()) {
                         Questions question = new Questions();
-                        
+
 //                        question.setAnsId(output.getString("AnsId"));
-                        
                         question.setQId(output.getString("qId"));
                         question.setQuestion(output.getString("question"));
                         question.setRiasecType(output.getString("riasecType"));
                         question.setGroupOfQuestion(output.getString("groupOfQuestion"));
                         question.setTargetUser(output.getString("targetUser"));
+                        question.setNameOfGroup(output.getString("nameOfGroup"));
                         result.add(question);
                     }
-                    
-                    
+
                     return result;
                 } catch (SQLException ex) {
                     Logger.getLogger(Connections.class.getName()).log(Level.SEVERE, null, ex);
                     return null;
                 }
             }
-            case "results":
-            {
+            case "results": {
                 ArrayList<Results> result = new ArrayList<>();
                 try {
-                    while(output.next()){
+                    while (output.next()) {
                         Results results = new Results();
-                        
+
 //                        questions.setBelongInChap(output.getString("BelongInChap"));
                         results.setArtistic(output.getString("artistic"));
                         results.setConventional(output.getString("conventional"));
@@ -239,33 +210,31 @@ public class Connections {
                         results.setRealistic(output.getString("realistic"));
                         results.setSocial(output.getString("social"));
                         results.setUsername(output.getString("username"));
-                        
+
                         result.add(results);
-                        
+
                     }
                     return result;
-                }
-                catch( SQLException ex){
+                } catch (SQLException ex) {
                     ex.printStackTrace(System.out);
                     return null;
                 }
-                
+
             }
-            case "records":
-            {
-                
+            case "records": {
+
                 ArrayList<Records> result;
                 try {
                     result = new ArrayList<>();
-                    while(output.next()){
+                    while (output.next()) {
                         Records record = new Records();
-                        
+
 //                        record.setHmId(output.getString("HmId"));
                         record.setOriantation(output.getString("oriantation"));
                         record.setRId(output.getString("rId"));
                         record.setType(output.getString("type"));
                         record.setUsername(output.getString("username"));
-                        
+
                         result.add(record);
                     }
                     return result;
@@ -274,96 +243,87 @@ public class Connections {
                     return null;
                 }
             }
-            case "answers":
-            {
+            case "answers": {
                 ArrayList<Answers> result = new ArrayList<>();
-                try{
-                    while(output.next()){
+                try {
+                    while (output.next()) {
                         Answers answer = new Answers();
                         answer.setAnId((output.getString("anId")));
                         answer.setAnswers(output.getString("answers"));
                         answer.setQuestions(output.getString("questions"));
                         answer.setUsername(output.getString("username"));
-                        
+
                         result.add(answer);
                     }
                     return result;
-                }catch (SQLException ex) {
-                ex.printStackTrace(System.out);
+                } catch (SQLException ex) {
+                    ex.printStackTrace(System.out);
                     return null;
-            }
-            }
-            case "users":
-            {
-                ArrayList<Users> result = new ArrayList<>();
-            try {
-                while(output.next()){
-                    Users user =new Users();
-                    
-//                    user.setCell(output.getString("Cell"));
-                    user.setEmail(output.getString("email"));
-                    user.setFirstName(output.getString("firstName"));
-                    user.setLastName(output.getString("lastName"));
-                    user.setPassword(output.getString("password"));
-                    user.setTypeOfUser(output.getString("typeOfUser"));
-                    user.setUserId(output.getString("userId"));
-                    user.setUsername(output.getString("username"));
-                    
-                    
-                    result.add(user);
                 }
-                return result;
-            } catch (SQLException ex) {
-                ex.printStackTrace(System.out);
+            }
+            case "users": {
+                ArrayList<Users> result = new ArrayList<>();
+                try {
+                    while (output.next()) {
+                        Users user = new Users();
+
+//                    user.setCell(output.getString("Cell"));
+                        user.setEmail(output.getString("email"));
+                        user.setFirstName(output.getString("firstName"));
+                        user.setLastName(output.getString("lastName"));
+                        user.setPassword(output.getString("password"));
+                        user.setTypeOfUser(output.getString("typeOfUser"));
+                        user.setUserId(output.getString("userId"));
+                        user.setUsername(output.getString("username"));
+
+                        result.add(user);
+                    }
+                    return result;
+                } catch (SQLException ex) {
+                    ex.printStackTrace(System.out);
                     return null;
+                }
             }
-            }
-            
-            default:
-            {
+
+            default: {
                 return null;
             }
         }
-        
-        
-        
-        
+
     }
-    ArrayList FormArrayList(ResultSet output , String tableName){
-        
+
+    ArrayList FormArrayList(ResultSet output, String tableName) {
+
         switch (tableName) {
-            case "questions":
-            {
-                
+            case "questions": {
+
                 ArrayList<Questions> result = new ArrayList<>();
                 try {
-                    while(output.next()){
+                    while (output.next()) {
                         Questions question = new Questions();
-                        
+
 //                        question.setAnsId(output.getString("AnsId"));
-                        
                         question.setQId(output.getString("qId"));
                         question.setQuestion(output.getString("question"));
                         question.setRiasecType(output.getString("riasecType"));
                         question.setGroupOfQuestion(output.getString("groupOfQuestion"));
                         question.setTargetUser(output.getString("targetUser"));
+                        question.setNameOfGroup(output.getString("nameOfGroup"));
                         result.add(question);
                     }
-                    
-                    
+
                     return result;
                 } catch (SQLException ex) {
                     Logger.getLogger(Connections.class.getName()).log(Level.SEVERE, null, ex);
                     return null;
                 }
             }
-            case "results":
-            {
+            case "results": {
                 ArrayList<Results> result = new ArrayList<>();
                 try {
-                    while(output.next()){
+                    while (output.next()) {
                         Results results = new Results();
-                        
+
 //                        questions.setBelongInChap(output.getString("BelongInChap"));
                         results.setArtistic(output.getString("artistic"));
                         results.setConventional(output.getString("conventional"));
@@ -373,32 +333,30 @@ public class Connections {
                         results.setRealistic(output.getString("realistic"));
                         results.setSocial(output.getString("social"));
                         results.setUsername(output.getString("username"));
-                        
+
                         result.add(results);
                         return result;
                     }
-                }
-                catch( SQLException ex){
+                } catch (SQLException ex) {
                     ex.printStackTrace(System.out);
                     return null;
                 }
-                
+
             }
-            case "records":
-            {
-                
+            case "records": {
+
                 ArrayList<Records> result;
                 try {
                     result = new ArrayList<>();
-                    while(output.next()){
+                    while (output.next()) {
                         Records record = new Records();
-                        
+
 //                        record.setHmId(output.getString("HmId"));
                         record.setOriantation(output.getString("oriantation"));
                         record.setRId(output.getString("rId"));
                         record.setType(output.getString("type"));
                         record.setUsername(output.getString("username"));
-                        
+
                         result.add(record);
                     }
                     return result;
@@ -407,75 +365,71 @@ public class Connections {
                     return null;
                 }
             }
-            case "answers":
-            {
+            case "answers": {
                 ArrayList<Answers> result = new ArrayList<>();
-                try{
-                    while(output.next()){
+                try {
+                    while (output.next()) {
                         Answers answer = new Answers();
                         answer.setAnId((output.getString("anId")));
                         answer.setAnswers(output.getString("answers"));
                         answer.setQuestions(output.getString("questions"));
                         answer.setUsername(output.getString("username"));
-                        
+
                         result.add(answer);
                     }
                     return result;
-                }catch (SQLException ex) {
-                ex.printStackTrace(System.out);
+                } catch (SQLException ex) {
+                    ex.printStackTrace(System.out);
                     return null;
-            }
-            }
-            case "users":
-            {
-                ArrayList<Users> result = new ArrayList<>();
-            try {
-                while(output.next()){
-                    Users user =new Users();
-                    
-//                    user.setCell(output.getString("Cell"));
-                    user.setEmail(output.getString("email"));
-                    user.setFirstName(output.getString("firstName"));
-                    user.setLastName(output.getString("lastName"));
-                    user.setPassword(output.getString("password"));
-                    user.setTypeOfUser(output.getString("typeOfUser"));
-                    user.setUserId(output.getString("userId"));
-                    user.setUsername(output.getString("username"));
-                    
-                    
-                    result.add(user);
                 }
-                return result;
-            } catch (SQLException ex) {
-                ex.printStackTrace(System.out);
+            }
+            case "users": {
+                ArrayList<Users> result = new ArrayList<>();
+                try {
+                    while (output.next()) {
+                        Users user = new Users();
+
+//                    user.setCell(output.getString("Cell"));
+                        user.setEmail(output.getString("email"));
+                        user.setFirstName(output.getString("firstName"));
+                        user.setLastName(output.getString("lastName"));
+                        user.setPassword(output.getString("password"));
+                        user.setTypeOfUser(output.getString("typeOfUser"));
+                        user.setUserId(output.getString("userId"));
+                        user.setUsername(output.getString("username"));
+
+                        result.add(user);
+                    }
+                    return result;
+                } catch (SQLException ex) {
+                    ex.printStackTrace(System.out);
                     return null;
+                }
             }
-            }
-            
-            default:
-            {
+
+            default: {
                 return null;
             }
         }
-        
-        
+
     }
-    public ResultSet findOr(ConditionalData... datas)
-    {
-        
+
+    public ResultSet findOr(ConditionalData... datas) {
+
         String query = "select * from ";
         String tables = "";
         String conditions = "";
-        
-        for(ConditionalData data : datas){
-            if(!tables.contains(data.getTableName()))
-                tables += data.getTableName() +",";
-            conditions += data.getTableName()+'.'+data.getColumnName()+"=\""+data.getValue()+"\" or ";
+
+        for (ConditionalData data : datas) {
+            if (!tables.contains(data.getTableName())) {
+                tables += data.getTableName() + ",";
+            }
+            conditions += data.getTableName() + '.' + data.getColumnName() + "=\"" + data.getValue() + "\" or ";
         }
-        tables = tables.substring(0, tables.length()-1);
-        conditions = conditions.substring(0, conditions.length()-3);
-        query += tables + " where " + conditions +";";
-        
+        tables = tables.substring(0, tables.length() - 1);
+        conditions = conditions.substring(0, conditions.length() - 3);
+        query += tables + " where " + conditions + ";";
+
         try {
             ResultSet output = statement.executeQuery(query);
             return output;
@@ -486,21 +440,23 @@ public class Connections {
             return null;
         }
     }
-    public ResultSet findAnd(ConditionalData... datas){
-        
+
+    public ResultSet findAnd(ConditionalData... datas) {
+
         String query = "select * from ";
         String tables = "";
         String conditions = "";
-        
-        for(ConditionalData data : datas){
-            if(!tables.contains(data.getTableName()))
-                tables += data.getTableName() +",";
-            conditions += data.getTableName()+'.'+data.getColumnName()+"=\""+data.getValue()+"\" and ";
+
+        for (ConditionalData data : datas) {
+            if (!tables.contains(data.getTableName())) {
+                tables += data.getTableName() + ",";
+            }
+            conditions += data.getTableName() + '.' + data.getColumnName() + "=\"" + data.getValue() + "\" and ";
         }
-        tables = tables.substring(0, tables.length()-1);
-        conditions = conditions.substring(0, conditions.length()-4);
-        query += tables + " where " + conditions +";";
-        
+        tables = tables.substring(0, tables.length() - 1);
+        conditions = conditions.substring(0, conditions.length() - 4);
+        query += tables + " where " + conditions + ";";
+
         try {
 //            System.out.println(query);
             ResultSet output = statement.executeQuery(query);
@@ -510,46 +466,23 @@ public class Connections {
             return null;
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    public ArrayList find(String tableName, String columnName, String condition){
-        
-        String query = "select * from "+ tableName +" where "+ columnName + " = \"" + condition + "\";";
-        
-        
-                
+
+    public ArrayList find(String tableName, String columnName, String condition) {
+
+        String query = "select * from " + tableName + " where " + columnName + " = \"" + condition + "\";";
+
         try {
 //            System.out.println(query);
             ResultSet output = statement.executeQuery(query);
             return FormArrayList(output, tableName);
-            
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(Connections.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-   
-    
-    
-    
-    public ArrayList selectAll(String tableName, int start, int total){
+
+    public ArrayList selectAll(String tableName, int start, int total) {
         /*
         **********************************************************************************************************************
         **********************************************************************************************************************
@@ -558,49 +491,42 @@ public class Connections {
 
         **********************************************************************************************************************
         **********************************************************************************************************************
-        */
+         */
 
-        
-        
-        
-        
-        String query = "SELECT * FROM "+ tableName + " LIMIT "+ start +", " + total +" ;";
+        String query = "SELECT * FROM " + tableName + " LIMIT " + start + ", " + total + " ;";
         ResultSet output = executeGet(query);
 //        ResultSetMetaData metaData = output.getMetaData();
-        
+
         switch (tableName) {
-            case "questions":
-            {
-                
+            case "questions": {
+
                 ArrayList<Questions> result = new ArrayList<>();
                 try {
-                    while(output.next()){
+                    while (output.next()) {
                         Questions question = new Questions();
-                        
+
 //                        question.setAnsId(output.getString("AnsId"));
-                        
                         question.setQId(output.getString("qId"));
                         question.setQuestion(output.getString("question"));
                         question.setRiasecType(output.getString("riasecType"));
                         question.setGroupOfQuestion(output.getString("groupOfQuestion"));
                         question.setTargetUser(output.getString("targetUser"));
+                        question.setNameOfGroup(output.getString("nameOfGroup"));
                         result.add(question);
                     }
-                    
-                    
+
                     return result;
                 } catch (SQLException ex) {
                     Logger.getLogger(Connections.class.getName()).log(Level.SEVERE, null, ex);
                     return null;
                 }
             }
-            case "results":
-            {
+            case "results": {
                 ArrayList<Results> result = new ArrayList<>();
                 try {
-                    while(output.next()){
+                    while (output.next()) {
                         Results results = new Results();
-                        
+
 //                        questions.setBelongInChap(output.getString("BelongInChap"));
                         results.setArtistic(output.getString("artistic"));
                         results.setConventional(output.getString("conventional"));
@@ -610,32 +536,30 @@ public class Connections {
                         results.setRealistic(output.getString("realistic"));
                         results.setSocial(output.getString("social"));
                         results.setUsername(output.getString("username"));
-                        
+
                         result.add(results);
                         return result;
                     }
-                }
-                catch( SQLException ex){
+                } catch (SQLException ex) {
                     ex.printStackTrace(System.out);
                     return null;
                 }
-                
+
             }
-            case "records":
-            {
-                
+            case "records": {
+
                 ArrayList<Records> result;
                 try {
                     result = new ArrayList<>();
-                    while(output.next()){
+                    while (output.next()) {
                         Records record = new Records();
-                        
+
 //                        record.setHmId(output.getString("HmId"));
                         record.setOriantation(output.getString("oriantation"));
                         record.setRId(output.getString("rId"));
                         record.setType(output.getString("type"));
                         record.setUsername(output.getString("username"));
-                        
+
                         result.add(record);
                     }
                     return result;
@@ -644,40 +568,72 @@ public class Connections {
                     return null;
                 }
             }
-            case "users":
-            {
+            case "users": {
                 ArrayList<Users> result = new ArrayList<>();
-            try {
-                while(output.next()){
-                    Users user =new Users();
-                    
+                try {
+                    while (output.next()) {
+                        Users user = new Users();
+
 //                    user.setCell(output.getString("Cell"));
-                    user.setEmail(output.getString("email"));
-                    user.setFirstName(output.getString("firstName"));
-                    user.setLastName(output.getString("lastName"));
-                    user.setPassword(output.getString("password"));
-                    user.setTypeOfUser(output.getString("typeOfUser"));
-                    user.setUserId(output.getString("userId"));
-                    user.setUsername(output.getString("username"));
-                    
-                    
-                    result.add(user);
-                }
-                return result;
-            } catch (SQLException ex) {
-                ex.printStackTrace(System.out);
+                        user.setEmail(output.getString("email"));
+                        user.setFirstName(output.getString("firstName"));
+                        user.setLastName(output.getString("lastName"));
+                        user.setPassword(output.getString("password"));
+                        user.setTypeOfUser(output.getString("typeOfUser"));
+                        user.setUserId(output.getString("userId"));
+                        user.setUsername(output.getString("username"));
+
+                        result.add(user);
+                    }
+                    return result;
+                } catch (SQLException ex) {
+                    ex.printStackTrace(System.out);
                     return null;
+                }
             }
-            }
-            
-            default:
-            {
+
+            default: {
                 return null;
             }
         }
-        
-        
-        
-        
+
+    }
+
+    public ArrayList selectAllQuestions(int start, int total, String riasecType) {
+        /*
+        **********************************************************************************************************************
+        **********************************************************************************************************************
+
+                    it take tableName then return all data in table then return array with corresponding object type
+
+        **********************************************************************************************************************
+        **********************************************************************************************************************
+         */
+
+        String query = "SELECT * FROM questions WHERE riasecType = \"" + riasecType + "\" and groupOfQuestion = '2' LIMIT " + start + ", " + total + " ;";
+        ResultSet output = executeGet(query);
+//        ResultSetMetaData metaData = output.getMetaData();
+
+        ArrayList<Questions> result = new ArrayList<>();
+        try {
+            while (output.next()) {
+                Questions question = new Questions();
+
+//                        question.setAnsId(output.getString("AnsId"));
+                question.setQId(output.getString("qId"));
+                question.setQuestion(output.getString("question"));
+                question.setRiasecType(output.getString("riasecType"));
+                question.setGroupOfQuestion(output.getString("groupOfQuestion"));
+                question.setTargetUser(output.getString("targetUser"));
+                question.setNameOfGroup(output.getString("nameOfGroup"));
+                result.add(question);
+            }
+
+            return result;
+        } catch (SQLException ex) {
+            Logger.getLogger(Connections.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+
     }
 }
