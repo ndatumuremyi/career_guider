@@ -25,7 +25,7 @@ import javax.servlet.http.HttpSession;
  * @author paterne
  */
 public class Interview extends HttpServlet {
-
+    database.Connections connection = new database.Connections();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -37,19 +37,7 @@ public class Interview extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        response.setContentType("text/html;charset=UTF-8");
-//        try (PrintWriter out = response.getWriter()) {
-//            /* TODO output your page here. You may use following sample code. */
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>Servlet Interview</title>");            
-//            out.println("</head>");
-//            out.println("<body>");
-//            out.println("<h1>Servlet Interview at " + request.getContextPath() + "</h1>");
-//            out.println("</body>");
-//            out.println("</html>");
-        database.Connections operation = new database.Connections();
+        
         int start = 0;
         int prevStart;
         
@@ -65,7 +53,7 @@ public class Interview extends HttpServlet {
         
         HttpSession session = request.getSession(false);
         database.Users user = (database.Users)  session.getAttribute("user");
-        ResultSet result = operation.executeGet("SELECT COUNT(*) As nRows FROM questions where groupOfQuestion = '1' ;");
+        ResultSet result = connection.executeGet("SELECT COUNT(*) As nRows FROM questions where groupOfQuestion = '1' ;");
         try {
             while (result.next()) {
                 totalRows = Integer.parseInt(result.getString("nRows"));
@@ -97,16 +85,18 @@ public class Interview extends HttpServlet {
             prevStart = count*(prevPage - 1);
             
             
-            
-            if(totalRows >= start){
-                questions = operation.selectAll("questions", start, count);
-//                questions = operation.selectAllQuestions(start, count, 1);
+            if((start+count) >= totalRows){
+                questions = connection.selectAll("questions", start, (totalRows-start));
+            }
+            else if(totalRows >= start){
+                questions = connection.selectAll("questions", start, count);
+//                questions = connection.selectAllQuestions(start, count, 1);
                 
             }
             
             if(!(page == 1 && prevPage == 1)){
-                prevQuestions = operation.selectAll("questions",prevStart,count);
-//                prevQuestions = questions = operation.selectAllQuestions(prevStart, count, 1);
+                prevQuestions = connection.selectAll("questions",prevStart,count);
+//                prevQuestions = questions = connection.selectAllQuestions(prevStart, count, 1);
             }
             
             
@@ -136,7 +126,10 @@ public class Interview extends HttpServlet {
         
         String submit = request.getParameter("submit");
         if(submit == null || submit.equals("next") || submit.equals("prev")){
-        totalPages = totalRows/count;
+        totalPages = (totalRows)/count;
+        if(totalRows%count != 0){
+            totalPages+=1;
+        }
         request.setAttribute("questions", questions);
         request.setAttribute("totalPages", totalPages);
         request.setAttribute("prevPage", page);
@@ -149,7 +142,7 @@ public class Interview extends HttpServlet {
         }
         
         
-        
+//        connection.destroy();
 
     }
 
@@ -191,5 +184,8 @@ public class Interview extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+     public void destroy() {
+        connection.destroy();
+    }
 
 }

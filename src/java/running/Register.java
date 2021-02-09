@@ -48,7 +48,7 @@ public class Register extends HttpServlet {
 
             if (user.save()) {
                 request.setAttribute("message", "you are now registed , you can login now ");
-                view = request.getRequestDispatcher("/HomePage");
+                view = request.getRequestDispatcher("Login.jsp");
                 view.forward(request, response);
                 
             } else {
@@ -98,5 +98,7 @@ public class Register extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+    public void destroy() {
+        
+    }
 }

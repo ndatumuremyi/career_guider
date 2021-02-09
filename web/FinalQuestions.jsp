@@ -55,10 +55,10 @@
                     <!--<a class="navbar-brand mr-auto" href="#"><img src="img/logo.png" height="30" width="41" ></a>-->
                     <div class="collapse navbar-collapse" id="Navbar">
                         <ul class="navbar-nav mr-auto">
-                            <li class="nav-item active"><a class="nav-link" href="#"><span class="fa fa-home fa-lg"></span> Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/aboutus.html"><span class="fa fa-home fa-info"></span> About Us</a></li>
-                            <li class="nav-item"><a class="nav-link" href="contactus.html"><span class="fa fa-home fa-address-card"></span> Contact Us</a></li>
-                            <li class="nav-item"><a class="nav-link" href="contactus.html"><span class="fa fa-home fa-help"></span> Help?</a></li>
+                            <li class="nav-item active"><a class="nav-link" href="/career_guidance/HomePage"><span class="fa fa-home fa-lg"></span> Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/html/AboutUs.jsp"><span class="fa fa-home fa-info"></span> About Us</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/career_guidance/MessageProcessing"><span class="fa fa-home fa-address-card"></span> Contact Us</a></li>
+                            <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/html/Help.jsp"><span class="fa fa-home fa-help"></span> Help?</a></li>
 
                         </ul>
                         <span class="navbar-text">
@@ -67,12 +67,22 @@
                             </a>
 
                         </span>
+                        <%
+                            try{
+                                database.Users user =(database.Users) session.getAttribute("user");
+                                %>
                         <span class="navbar-text">
                             <a href="#">
 
-                                <span class="ml-3 fa fa-user"></span> My Profile
+                                <span class="ml-3 fa fa-user-circle"></span> <%= user.getUsername() %>
                             </a>
                         </span>
+                        <%
+                            }catch(Exception e){
+                                
+                            }
+                            
+                            %>
                     </div>
 
                 </div>
@@ -80,7 +90,8 @@
             
 
             <div class="contents">
-                
+                <div class="row">
+                    <div class=" offset-3 col-6">
                 <form action="FinalQuestions" method="get">
                     <input type="hidden" name="prevPage" value="<%= request.getAttribute("prevPage") %>">
                     <div class="">
@@ -131,18 +142,48 @@
                         
                         <!--<input name="page"class="sr-only" value="1">-->
                         <ul class="pagination">
-                            <li class="page-item">
+                            <%
+                                try{
+                                    if(((int)request.getAttribute("prevPage")) == 1){
+                                        %>
+<!--                                    <li>
+                                        <button class="page-link pages-nav" id="next" type="hidden" name="submit" value="next">Next</button>
+                                    </li>-->
+                                        <%
+                                    }else{
+                                    %>
+                                    <li class="page-item">
+                                <button class="page-link pages-nav" id="prev" type="submit" tabindex="-1" name="submit" value="prev" >Previous</button>
+                            </li>  
+                                    <%
+                                    }
+                                }catch(Exception e){
+                                    %>
+                                    <li class="page-item">
                                 <button class="page-link pages-nav" id="prev" type="submit" tabindex="-1" name="submit" value="prev" >Previous</button>
                             </li>
+                                    <%
+                                }finally{
+                                    
+                                }
+                            %>
+                            
                             <%
                                 try{
                                     
                                 for(int i =1; i <= (int)(request.getAttribute("totalPages"));i++){
+                                    if(((int)request.getAttribute("prevPage"))== i){
+                                        %>
+                                    <li class="page-item" id="<%= i +'l' %>"><input class="page-link bg-warning" type="submit" name="page" value="<%= i %>">
+                                    
+                                    <%
+                                    }
+                                        else{
                                     %>
                                     <li class="page-item " id="<%= i +'l' %>"><input class="page-link" type="submit" name="page" value="<%= i %>">
                                     
                                     <%
-                                        
+                                        }
                                 }
                                 }
                                 catch(Exception e){
@@ -152,13 +193,36 @@
                                 
                                     out.println();
                                 }
+                                try{
+                                    if(((int)request.getAttribute("prevPage")) >= ((int)request.getAttribute("totalPages"))){
+                                        %>
+<!--                                    <li>
+                                        <button class="page-link pages-nav" id="next" type="hidden" name="submit" value="next">Next</button>
+                                    </li>-->
+                                        <%
+                                    }else{
+                                    %>
+                                    <li>
+                                    <button class="page-link pages-nav" id="next" type="submit" name="submit" value="next">Next</button>
+                                    </li>    
+                                    <%
+                                    }
+                                }catch(Exception e){
+                                    %>
+                                    <li>
+                                    <button class="page-link pages-nav" id="next" type="submit" name="submit" value="next">Next</button>    
+                                    </li>
+                                    <%
+                                }finally{
+                                    
+                                }
                             %>
-                            <li>
-                                <button class="page-link pages-nav" id="next" type="submit" name="submit" value="next">Next</button>
-                            </li>
+                            
                         </ul>
                         </form>
                     </nav>
+                </div>
+                    </div>
                 </div>
             </div>
             <footer class="footer bg-sucess">
@@ -167,10 +231,10 @@
                         <div class="col-4 offset-1 col-sm-2">
                             <h5>Links</h5>
                             <ul class="list-unstyled">
-                                <li><a href="#">Home</a></li>
-                                <li><a href="./aboutus.html">About</a></li>
-                                <li><a href="#">Menu</a></li>
-                                <li><a href="contactus.html">Contact</a></li>
+                                <li><a href="/career_guidance/HomePage">Home</a></li>
+                                <li><a href="${pageContext.request.contextPath}/html/AboutUs.jsp">About</a></li>
+                                <li><a href="${pageContext.request.contextPath}/html/help.jsp">Help</a></li>
+                                <li><a href="/career_guidance/MessageProcessing">Contact</a></li>
                             </ul>
                         </div>
                         <div class="col-7 col-sm-5">

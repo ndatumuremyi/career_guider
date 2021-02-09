@@ -10,6 +10,7 @@ import database.Results;
 import database.Users;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,7 +24,7 @@ import javax.servlet.http.HttpSession;
  * @author paterne
  */
 public class DashBoard extends HttpServlet {
-
+    database.Connections connection = new database.Connections();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,9 +37,9 @@ public class DashBoard extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
                 
-        
+            database.Records record = null;
             Results result =(Results) request.getAttribute("result");
-            database.Connections connection = new database.Connections();
+            
             HttpSession session = request.getSession(false);
             
             database.Users user =(database.Users) session.getAttribute("user");
@@ -49,11 +50,34 @@ public class DashBoard extends HttpServlet {
                     result = null;
                 }
                 
-                request.setAttribute("result", result);
             }
+            request.setAttribute("result",result);
+            
+            try{
+                 record = (database.Records) connection.find("records", "username", user.getUsername()).get(0);
+                
+            }catch(Exception e){
+                record = null;
+            }
+            request.setAttribute("record", record);
+                
+                
+                ResultSet allOrientations;
+                try{
+                    String query = " SELECT DISTINCT nameOfGroup from questions where riasecType = \""+record.getType()+"\";";
+                    allOrientations = connection.executeGet(query);
+                }catch(Exception e){
+                    allOrientations = null;
+                }
+                
+                request.setAttribute("allOrientation", allOrientations);
+            
+            
             
             /* TODO output your page here. You may use following sample code. */
            RequestDispatcher view =  request.getRequestDispatcher("html/DashBoard.jsp");
+           
+//           connection.destroy();
            view.forward(request, response);
         
     }
@@ -96,5 +120,8 @@ public class DashBoard extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+    @Override
+    public void destroy() {
+        connection.destroy();
+    }
 }

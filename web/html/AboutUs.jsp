@@ -57,10 +57,10 @@
                     <!--<a class="navbar-brand mr-auto" href="#"><img src="img/logo.png" height="30" width="41" ></a>-->
                     <div class="collapse navbar-collapse" id="Navbar">
                         <ul class="navbar-nav mr-auto">
-                            <li class="nav-item active"><a class="nav-link" href="#"><span class="fa fa-home fa-lg"></span> Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/aboutus.html"><span class="fa fa-home fa-info"></span> About Us</a></li>
-                            <li class="nav-item"><a class="nav-link" href="contactus.html"><span class="fa fa-home fa-address-card"></span> Contact Us</a></li>
-                            <li class="nav-item"><a class="nav-link" href="contactus.html"><span class="fa fa-home fa-help"></span> Help?</a></li>
+                            <li class="nav-item active"><a class="nav-link" href="${pageContext.request.contextPath}/HomePage.jsp"><span class="fa fa-home fa-lg"></span> Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/html/AboutUs.jsp"><span class="fa fa-home fa-info"></span> About Us</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/career_guidance/MessageProcessing"><span class="fa fa-home fa-address-card"></span> Contact Us</a></li>
+                            <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/html/Help.jsp"><span class="fa fa-home fa-help"></span> Help?</a></li>
 
                         </ul>
                         <span class="navbar-text">
@@ -90,17 +90,17 @@
                         </div>
                         <div class="modal-body">
                             <div class="row">
-
+                                
                             </div>
-                            <form action="">
+                            <form action="/career_guidance/authenticate" method="post">
                                 <div class="form-row">
                                     <div class="form-group col-sm-4">
                                         <label for="exampleInputEmail3" class="sr-only">Password</label>
-                                        <input type="email" class="form-control form-control-sm mr-1" id="exampleInputEmail3" placeholder="Enter email">
+                                        <input type="email" class="form-control form-control-sm mr-1" id="email" name="email" placeholder="Enter email">
                                     </div>
                                     <div class="form-group col-sm-4">
                                         <label class="sr-only" for="exampleInputPassword3"></label>
-                                        <input type="password" class="form-control form-control-sm mr-1" id="exampleInputPassword3" placeholder="Passowrd">
+                                        <input type="password" class="form-control form-control-sm mr-1" id="password" name="password" placeholder="Passowrd">
                                     </div>
                                     <div class="col-sm-auto">
                                         <div class="form-check">
@@ -120,28 +120,90 @@
             </div>
 
             <div class="contents">
-
+                <div>
+                    <div class="row">
+                        <div class=" mb-5">
+                            <p> we are<b> cse</b> year two students </p>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
 
                     <div class="col-12 col-sm-4">
                         <div class="shadow-none p-3 mb-5 bg-warning rounded ml-3">
-                            
+                            <div class="card">
+                                <div class="card-body">
+                                    <dl class="row">
+                                        <dt class="col-4"> name </dt>
+                                        <dd class="col-8"> NDATUMUREMYI Paterne </dd>
+                                        <dt class="col-4"> Tel. </dt>
+                                        <dd class="col-8"><i class="fa fa-phone fg-lg"></i> +250 786388768 </dd>
+                                        <dt class="col-4"> Reg no </dt>
+                                        <dd class="col-8"> 219005251 </dd>
+                                        <dt class="col-4">Email </dt>
+                                        <dd class="col-8"><i class="fa fa-envelope fa-lg"></i>: <a href="mailto:paternenught@gmail.com">paternenught@gmail.com</a> </dd>
+                                        <dt class="col-4">Address</dt>
+                                        <dd class="col-8">KN 7 Ave<br>
+                                            Collage of  Science and Technology<br>
+                                            Kigali<br> </dd>
+                                        
+                                    </dl>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
                     <div class="col-12 col-sm-4 ">
-                        <div class="shadow-none p-3 mb-5 bg-warning rounded">
-                            <p>this paragraph is for testing this page. only for that , if it finish to test it will be erased by developer</p>
-                        </div>
+                        
+                        <div class="shadow-none p-3 mb-5 mt-5 bg-warning rounded ml-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <dl class="row">
+                                        <dt class="col-4"> name </dt>
+                                        <dd class="col-8"> UWITONZE Claudette </dd>
+                                        <dt class="col-4"> Tel. </dt>
+                                        <dd class="col-8"><i class="fa fa-phone fg-lg"></i> +250 780596535 </dd>
+                                        <dt class="col-4"> Reg no </dt>
+                                        <dd class="col-8"> 219004619 </dd>
+                                        <dt class="col-4">Email </dt>
+                                        <dd class="col-8"><i class="fa fa-envelope fa-lg"></i>: <a href="mailto:uwitonzec54@gmail.com">uwitonzec54@gmail.com</a> </dd>
+                                        <dt class="col-4">Address</dt>
+                                        <dd class="col-8">KN 7 Ave<br>
+                                            Collage of  Science and Technology<br>
+                                            Kigali<br> </dd>
+                                        
+                                    </dl>
+                                </div>
+                            </div>
 
                     </div>
-                    <div class="col-12 col-sm-4 ">
-                        <div class="shadow-none p-3 mb-5 bg-warning rounded mr-3">
-                            <p>this paragraph is for testing this page. only for that , if it finish to test it will be erased by developer</p>
                         </div>
+                    <div class="col-12 col-sm-4 mt-5">
+                        <div class="shadow-none p-3 mb-5 mt-5 bg-warning rounded ml-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <dl class="row">
+                                        <dt class="col-4"> name </dt>
+                                        <dd class="col-8"> TWIMARIRUNGU Josiane </dd>
+                                        <dt class="col-4"> Tel. </dt>
+                                        <dd class="col-8"><i class="fa fa-phone fg-lg"></i> +250 783572823 </dd>
+                                        <dt class="col-4"> Reg no </dt>
+                                        <dd class="col-8"> 219006314 </dd>
+                                        <dt class="col-4">Email </dt>
+                                        <dd class="col-8"><i class="fa fa-envelope fa-lg"></i>: <a href="mailto:twimarejosiane@gmail.com">twimarejosiane@gmail.com</a> </dd>
+                                        <dt class="col-4">Address</dt>
+                                        <dd class="col-8">KN 7 Ave<br>
+                                            Collage of  Science and Technology<br>
+                                            Kigali<br> </dd>
+                                        
+                                    </dl>
+                                </div>
+                            </div>
 
                     </div>
-                </div>
+
+                    </div>
+                
             </div>
             <footer class="footer bg-sucess">
                 <div class="container">
@@ -149,10 +211,10 @@
                         <div class="col-4 offset-1 col-sm-2">
                             <h5>Links</h5>
                             <ul class="list-unstyled">
-                                <li><a href="#">Home</a></li>
-                                <li><a href="./aboutus.html">About</a></li>
-                                <li><a href="#">Menu</a></li>
-                                <li><a href="contactus.html">Contact</a></li>
+                                <li><a href="/career_guidance/HomePage">Home</a></li>
+                                <li><a href="${pageContext.request.contextPath}/html/AboutUs.jsp">About</a></li>
+                                <li><a href="${pageContext.request.contextPath}/html/Help.jsp">Help</a></li>
+                                <li><a href="/career_guidance/MessageProcessing">Contact</a></li>
                             </ul>
                         </div>
                         <div class="col-7 col-sm-5">

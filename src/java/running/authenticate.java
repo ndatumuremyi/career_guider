@@ -25,8 +25,9 @@ import javax.servlet.http.HttpSession;
  */
 //@WebServlet("/Logout")
 public class authenticate extends HttpServlet {
+    database.Connections connection = new database.Connections();
     database.Users user = null;
-    String destination = "/home";
+    String destination = "/HomePage";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -68,13 +69,13 @@ public class authenticate extends HttpServlet {
             throws ServletException, IOException {
         
         
-        database.Connections operation = new database.Connections();
+        
        
         
 //        String email = request.getAttribute("email").toString();
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        ResultSet result = operation.findAnd(new database.ConditionalData("users","email",email), new database.ConditionalData("users","password",password));
+        ResultSet result = connection.findAnd(new database.ConditionalData("users","email",email), new database.ConditionalData("users","password",password));
         
         try {
             if(result.next()){
@@ -89,7 +90,14 @@ public class authenticate extends HttpServlet {
                 
                 HttpSession session = request.getSession();
                 session.setAttribute("user", user);
-                destination = "/DashBoard";
+                if(user.getTypeOfUser().equals("admin")){
+                    destination = "/Admin";
+                }
+                else{
+                    destination = "DashBoard";
+                }
+                
+                
                 
                 
             }
@@ -110,7 +118,7 @@ public class authenticate extends HttpServlet {
                 view.forward(request, response);
         }
         
-        
+//        connection.destroy();
     }
 
     /**
@@ -122,5 +130,7 @@ public class authenticate extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+    public void destroy() {
+        connection.destroy();
+    }
 }

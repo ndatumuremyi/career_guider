@@ -26,7 +26,7 @@ import javax.servlet.http.HttpSession;
  * @author paterne
  */
 public class FinalQuestions extends HttpServlet {
-    database.Connections operation = new database.Connections();
+    database.Connections connection = new database.Connections();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -68,7 +68,7 @@ public class FinalQuestions extends HttpServlet {
         database.Users user = (database.Users)  session.getAttribute("user");
         user.findResults();
         String maxType = user.result.findMaximum();
-        ResultSet result = operation.executeGet("SELECT COUNT(*) As nRows FROM questions where groupOfQuestion = '2' and riasecType = \""+maxType+"\" ;");
+        ResultSet result = connection.executeGet("SELECT COUNT(*) As nRows FROM questions where groupOfQuestion = '2' and riasecType = \""+maxType+"\" ;");
         try {
             while (result.next()) {
                 totalRows = Integer.parseInt(result.getString("nRows"));
@@ -102,15 +102,15 @@ public class FinalQuestions extends HttpServlet {
             
             
             if(totalRows >= start){
-//                questions = operation.selectAll("questions", start, count);
-                questions = operation.selectAllQuestions(start, count, maxType);
+//                questions = connection.selectAll("questions", start, count);
+                questions = connection.selectAllQuestions(start, count, maxType);
                 
                 
             }
             
             if(!(page == 1 && prevPage == 1)){
-//                prevQuestions = operation.selectAll("questions",prevStart,count);
-                prevQuestions = operation.selectAllQuestions(prevStart, count, maxType);
+//                prevQuestions = connection.selectAll("questions",prevStart,count);
+                prevQuestions = connection.selectAllQuestions(prevStart, count, maxType);
             }
             
             
@@ -162,7 +162,7 @@ public class FinalQuestions extends HttpServlet {
         }
         
         
-        
+//        connection.destroy();
 
     }
 
@@ -206,14 +206,16 @@ public class FinalQuestions extends HttpServlet {
     }// </editor-fold>
     
     public void findNameOfGroup(database.Users user, String type){
-        String query = "SELECT * FROM questions WHERE riasecType = \""+type +"\" and groupOfQuestion = '2' ;";
-        ResultSet output = operation.executeGet(query);
-        Questions question = new Questions();
+//        String query = "SELECT * FROM questions WHERE riasecType = \""+type +"\" and groupOfQuestion = '2' ;";
+        ResultSet output = connection.findAnd(new database.ConditionalData("questions","riasecType",type), new database.ConditionalData("questions","groupOfQuestion","2"));
+        
         ArrayList<Questions> questions = new ArrayList<>();
         
         HashMap<String, Integer>nameOfGroupCount = new HashMap<>();
         try {
             while(output.next()){
+                Questions question = new Questions();
+                
                 question.setGroupOfQuestion(output.getString("groupOfQuestion"));
                 question.setNameOfGroup(output.getString("nameOfGroup"));
                 question.setQId(output.getString("qId"));
@@ -267,13 +269,13 @@ public class FinalQuestions extends HttpServlet {
                 }
             }
             
-            query = "select * from records where username = \"" +user.getUsername() +"\"";
+            String query = "select * from records where username = \"" +user.getUsername() +"\"";
             
             
-            ResultSet output2 = operation.executeGet(query);
+            ResultSet output2 = connection.executeGet(query);
             boolean isAlreadyIn = false;
             if(output2.next()){
-                operation.executeSet("DELETE FROM records where username = \""+user.getUsername()+"\";");
+                connection.executeSet("DELETE FROM records where username = \""+user.getUsername()+"\";");
             }
             
             database.Records record = new database.Records();
@@ -288,4 +290,8 @@ public class FinalQuestions extends HttpServlet {
         }
 
 }
+    @Override
+    public void destroy() {
+        connection.destroy();
+    }
 }

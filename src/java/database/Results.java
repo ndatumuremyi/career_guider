@@ -172,7 +172,7 @@ public class Results extends Table{
     }
         
         else if(socialInt >= artisticInt && socialInt >= conventionalInt &&socialInt >= realisticInt && socialInt >= investigativeInt && socialInt >= enterprisingInt){
-            return "socialInt";
+            return "social";
     }
         else{
             return "realistic";

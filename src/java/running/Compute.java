@@ -26,6 +26,7 @@ import javax.servlet.http.HttpSession;
  * @author paterne
  */
 public class Compute extends HttpServlet {
+    Connections connection =new  Connections();
     int realistic = 0, investigative = 0, artistic = 0, social = 0,  enterprising = 0, conventional = 0;
     int error = 0;
     int realisticTotal = 0, investigativeTotal = 0, artisticTotal = 0, socialTotal = 0,  enterprisingTotal = 0, conventionalTotal = 0;
@@ -44,7 +45,7 @@ public class Compute extends HttpServlet {
         
         Users user =(Users) session.getAttribute("user");
         
-        Connections connection =new  Connections();
+        
         ArrayList<database.Answers> answers = connection.find("answers", "username", user.getUsername());
         answers.forEach((answer) -> {
             answer.findQuestion();           
@@ -185,8 +186,9 @@ public class Compute extends HttpServlet {
         
             /* TODO output your page here. You may use following sample code. */
            RequestDispatcher view =  request.getRequestDispatcher("DashBoard");
+           
            view.forward(request, response);
-        
+//        connection.destroy();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -227,5 +229,9 @@ public class Compute extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+    @Override
+    public void destroy() {
+        connection.destroy();
+    }
 
 }

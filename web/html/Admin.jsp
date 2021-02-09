@@ -59,10 +59,10 @@
                     <!--<a class="navbar-brand mr-auto" href="#"><img src="img/logo.png" height="30" width="41" ></a>-->
                     <div class="collapse navbar-collapse" id="Navbar">
                         <ul class="navbar-nav mr-auto">
-                            <li class="nav-item active"><a class="nav-link" href="#"><span class="fa fa-home fa-lg"></span> Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/aboutus.html"><span class="fa fa-home fa-info"></span> About Us</a></li>
-                            <li class="nav-item"><a class="nav-link" href="contactus.html"><span class="fa fa-home fa-address-card"></span> Contact Us</a></li>
-                            <li class="nav-item"><a class="nav-link" href="contactus.html"><span class="fa fa-home fa-help"></span> Help?</a></li>
+                            <li class="nav-item active"><a class="nav-link" href="/career_guidance/admin"><span class="fa fa-home fa-lg"></span> Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}"><span class="fa fa-home fa-info"></span> About Us</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/career_guidance/MessageProcessing"><span class="fa fa-home fa-address-card"></span> Contact Us</a></li>
+                            <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/html/Help.jsp"><span class="fa fa-home fa-help"></span> Help?</a></li>
 
                         </ul>
                         <span class="navbar-text">
@@ -71,12 +71,23 @@
                             </a>
 
                         </span>
+                        <%
+                            try{
+                                database.Users user =(database.Users) session.getAttribute("user");
+                                %>
                         <span class="navbar-text">
                             <a href="#">
 
-                                <span class="ml-3 fa fa-user"></span> My Profile
+                                <span class="ml-3 fa fa-user-circle"></span> <%= user.getUsername() %>
                             </a>
                         </span>
+                        <%
+                            }catch(Exception e){
+                                
+                            }
+                            
+                            %>
+                        
                     </div>
 
                 </div>
@@ -996,10 +1007,10 @@
                         <div class="col-4 offset-1 col-sm-2">
                             <h5>Links</h5>
                             <ul class="list-unstyled">
-                                <li><a href="#">Home</a></li>
-                                <li><a href="./aboutus.html">About</a></li>
-                                <li><a href="#">Menu</a></li>
-                                <li><a href="contactus.html">Contact</a></li>
+                                <li><a href="/career_guidance/HomePage">Home</a></li>
+                                <li><a href="${pageContext.request.contextPath}/html/AboutUs.jsp">About</a></li>
+                                <li><a href="${pageContext.request.contextPath}/html/Help.jsp">Help</a></li>
+                                <li><a href="/career_guidance/MessageProcessing">Contact</a></li>
                             </ul>
                         </div>
                         <div class="col-7 col-sm-5">

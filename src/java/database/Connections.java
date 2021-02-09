@@ -23,14 +23,14 @@ public class Connections {
 
     String values = "";
     String columns = "";
-
+    Connection connection;
     static Statement statement;
 
     public Connections() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
 
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/career", "scott", "tiger");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost/career", "scott", "tiger");
             statement = connection.createStatement();
             System.out.print("connection Succed");
         } catch (ClassNotFoundException | SQLException ex) {
@@ -38,6 +38,13 @@ public class Connections {
         }
         //return null;
 
+    }
+    public void destroy(){
+        try {
+            connection.close();
+        } catch (SQLException ex) {
+            System.out.println("fail to close");
+        }
     }
 
     public static Statement getConnection() {

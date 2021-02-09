@@ -15,9 +15,10 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
         <title>JSP Page</title>
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/font-awesome.min.css">
-        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css?24">
+        
     </head>
     <body>
         <div class="container-fluid">
@@ -58,10 +59,10 @@
                     <!--<a class="navbar-brand mr-auto" href="#"><img src="img/logo.png" height="30" width="41" ></a>-->
                     <div class="collapse navbar-collapse" id="Navbar">
                         <ul class="navbar-nav mr-auto">
-                            <li class="nav-item active"><a class="nav-link" href="#"><span class="fa fa-home fa-lg"></span> Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/aboutus.html"><span class="fa fa-home fa-info"></span> About Us</a></li>
-                            <li class="nav-item"><a class="nav-link" href="contactus.html"><span class="fa fa-home fa-address-card"></span> Contact Us</a></li>
-                            <li class="nav-item"><a class="nav-link" href="contactus.html"><span class="fa fa-home fa-help"></span> Help?</a></li>
+                            <li class="nav-item active"><a class="nav-link" href="/career_guidance/HomePage"><span class="fa fa-home fa-lg"></span> Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/html/AboutUs.jsp"><span class="fa fa-home fa-info"></span> About Us</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/career_guidance/MessageProcessing"><span class="fa fa-home fa-address-card"></span> Contact Us</a></li>
+                            <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/html/Help.jsp"><span class="fa fa-home fa-help"></span> Help?</a></li>
 
                         </ul>
                         <span class="navbar-text">
@@ -93,15 +94,15 @@
                             <div class="row">
                                 
                             </div>
-                            <form action="">
+                            <form action="/career_guidance/authenticate" method="post">
                                 <div class="form-row">
                                     <div class="form-group col-sm-4">
                                         <label for="exampleInputEmail3" class="sr-only">Password</label>
-                                        <input type="email" class="form-control form-control-sm mr-1" id="exampleInputEmail3" placeholder="Enter email">
+                                        <input type="email" class="form-control form-control-sm mr-1" id="email" name="email" placeholder="Enter email">
                                     </div>
                                     <div class="form-group col-sm-4">
                                         <label class="sr-only" for="exampleInputPassword3"></label>
-                                        <input type="password" class="form-control form-control-sm mr-1" id="exampleInputPassword3" placeholder="Passowrd">
+                                        <input type="password" class="form-control form-control-sm mr-1" id="password" name="password" placeholder="Passowrd">
                                     </div>
                                     <div class="col-sm-auto">
                                         <div class="form-check">
@@ -123,13 +124,54 @@
             <div>
 
                 <div class="row">
-                    <div class="discr col-4 p-3 offset-1">
+                    <div class=" col-4 p-3 offset-1">
                         <p class="">You are struggling
-                            to find a career path and 
-                            need some inspiration?</p>
+                            with the process ? <br> flow this guide will help you</p>
                     </div>
                     <div class="image offset-1 col-6">
-                        <img class="image1 img-fluid" src="images/careerguidance.png" alt="carreer">
+                        <dl class="discr">
+                            <div class="row">
+                                <dt class="text-primary col-3">1. Register</dt>
+                                <dd class="col-9">if you are new to this website first Of all you have to register you self. click 
+                                    <b><span class="fa fa-user-plus"></span>Register</b> in right cornel of navigation
+                                </dd>
+                            </div>
+                            <div class="row">
+                                <dt class="text-primary col-3">2. Login</dt>
+                                <dd class="col-9">After registering you have to login to your account by . click 
+                                    <b><span class="fa fa-sign-in"></span>Login</b> in right cornel of navigation
+                                </dd>
+                            </div>
+                            <div class="row">
+                                <dt class="text-primary col-3">3. Take Interview</dt>
+                                <dd class="col-9">after login, you have to attempt First Interview by . click 
+                                    <b>Interview</b> in left side of you dashboard
+                                </dd>
+                            </div>
+                            <div class="row">
+                                <dt class="text-primary col-3">4. Take Final Interview </dt>
+                                <dd class="col-9">In order to specify a field you are good at you have to attempt final Interview  . click 
+                                    <b>Interview</b> in below <b>interview</b> on dashboard
+                                </dd>
+                            </div>
+                            <div class="row">
+                                <dt class="text-primary col-3">5. check results </dt>
+                                <dd class="col-9">after attempt all interview, you fill see all information on your dashboard  . click 
+                                    
+                                </dd>
+                            </div>
+                            <div class="row">
+                                <dt class="text-primary col-3">6. Edit Profile </dt>
+                                <dd class="col-9">if you want to change your profile, you can click   . click 
+                                    <span class="fa fa-edit"></span><b>Edit profile</b> below your  <b>Profile info</b> on dashboard
+                                </dd>
+                            </div>
+                            <div class="row">
+                                <dt class="text-primary col-3">7. Re-attempt interview </dt>
+                                <dd class="col-9">if you want you can re-attempt again, simply click on what you want to <b>atend</b> again.
+                                </dd>
+                            </div>
+                        </dl>
 
                     </div>
                 </div>
@@ -140,10 +182,10 @@
                         <div class="col-4 offset-1 col-sm-2">
                             <h5>Links</h5>
                             <ul class="list-unstyled">
-                                <li><a href="#">Home</a></li>
-                                <li><a href="./aboutus.html">About</a></li>
-                                <li><a href="#">Menu</a></li>
-                                <li><a href="contactus.html">Contact</a></li>
+                                <li><a href="/career_guidance/HomePage">Home</a></li>
+                                <li><a href="${pageContext.request.contextPath}/html/AboutUs.jsp">About</a></li>
+                                <li><a href="${pageContext.request.contextPath}/html/Help.jsp">Help?</a></li>
+                                <li><a href="/career_guidance/MessageProcessing">Contact</a></li>
                             </ul>
                         </div>
                         <div class="col-7 col-sm-5">

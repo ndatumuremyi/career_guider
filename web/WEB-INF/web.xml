@@ -41,10 +41,6 @@
         <servlet-class>running.Register</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>MyProfile</servlet-name>
-        <servlet-class>running.MyProfile</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>FinalQuetions</servlet-name>
         <servlet-class>running.FinalQuetions</servlet-class>
     </servlet>
@@ -52,10 +48,19 @@
         <servlet-name>FinalQuestions</servlet-name>
         <servlet-class>running.FinalQuestions</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MessageProcessing</servlet-name>
+        <servlet-class>running.MessageProcessing</servlet-class>
+    </servlet>
+    
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>
         <url-pattern>/HomePage</url-pattern>
     </servlet-mapping>
+<!--    <servlet-mapping>
+        <servlet-name>HomePage</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>-->
     <servlet-mapping>
         <servlet-name>authenticate</servlet-name>
         <url-pattern>/authenticate</url-pattern>
@@ -93,16 +98,16 @@
         <url-pattern>/Register</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>MyProfile</servlet-name>
-        <url-pattern>/MyProfile</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>FinalQuetions</servlet-name>
         <url-pattern>/FinalQuetions</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>FinalQuestions</servlet-name>
         <url-pattern>/FinalQuestions</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MessageProcessing</servlet-name>
+        <url-pattern>/MessageProcessing</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

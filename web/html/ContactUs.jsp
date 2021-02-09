@@ -1,50 +1,51 @@
 <%-- 
-    Document   : HomePage
-    Created on : Jan 14, 2021, 5:02:33 PM
+    Document   : ContactUs
+    Created on : Feb 8, 2021, 6:03:18 PM
     Author     : paterne
 --%>
 
+<%@page import="java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        
+
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
         <title>JSP Page</title>
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/font-awesome.min.css">
-        <link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css?21">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css?24">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/rotating-card.css">
     </head>
     <body>
         <div class="container-fluid">
-            
+
             <%
-                String message = (String)request.getAttribute("message");
-                if(message != null){
-                    %>
-                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                        <strong><span class="fa fa-info"></span></strong> <%= message %> 
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <%
+                String message = (String) request.getAttribute("message");
+                if (message != null) {
+            %>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong><span class="fa fa-info"></span></strong> <%= message%> 
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <%
                 }
-                %>
-            
-            
-            
-            
-            
-            
-            
-            
-            
+            %>
+
+
+
+
+
+
+
+
+
             <div class="title">
                 <h1>Welcome to Career guider</h1>
             </div>
@@ -57,26 +58,26 @@
                     <!--<a class="navbar-brand mr-auto" href="#"><img src="img/logo.png" height="30" width="41" ></a>-->
                     <div class="collapse navbar-collapse" id="Navbar">
                         <ul class="navbar-nav mr-auto">
-                            <li class="nav-item active"><a class="nav-link" href="#"><span class="fa fa-home fa-lg"></span> Home</a></li>
+                            <li class="nav-item active"><a class="nav-link" href="/career_guidance/HomePage"><span class="fa fa-home fa-lg"></span> Home</a></li>
                             <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/html/AboutUs.jsp"><span class="fa fa-home fa-info"></span> About Us</a></li>
                             <li class="nav-item"><a class="nav-link" href="/career_guidance/MessageProcessing"><span class="fa fa-home fa-address-card"></span> Contact Us</a></li>
                             <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/html/Help.jsp"><span class="fa fa-home fa-help"></span> Help?</a></li>
 
                         </ul>
-                            
                         <span class="navbar-text">
                             <a href="" data-toggle="modal" data-target= "#loginModal">
                                 <span class="fa fa-sign-in"></span> Login
                             </a>
-                            
+
                         </span>
                         <span class="navbar-text">
                             <a href="/career_guidance/Register">
-                                
+
                                 <span class="ml-3 fa fa-user-plus"></span> Register
                             </a>
                         </span>
                     </div>
+
                 </div>
             </nav>
             <div id="loginModal" class="modal fade" role="dialog">
@@ -120,16 +121,91 @@
             </div>
 
             <div class="contents">
-               
+
                 <div class="row">
-                    <div class="discr col-4 p-3 offset-1">
+                    <div class=" col-3 p-3 offset-1">
                         <p class="">You are struggling
                             to find a career path and 
                             need some inspiration?</p>
                     </div>
-                    <div class="image offset-1 col-6">
-                        <img class="image1 img-fluid" src="${pageContext.request.contextPath}/images/careerguidance.png" alt="carreer">
+                    <div class="discr offset-1 col-6">
+                        <form method="get" action="/career_guidance/MessageProcessing">
 
+
+                            <div class="row">
+                                <div class="col-4">
+                                    <label for="yourName">Enter your <b>name</b></label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="offset-2">
+                                    <input name="yourName" id="yourName" size="50" required >
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-5 mt-5">
+                                    <label for="Message">Type your <b>message here</b></label>
+                                </div>
+                            </div>
+                            <div class="row mb-5">
+                                <div class="offset-2">
+                                    <textarea rows="12" cols="50" name="message" required>
+
+                                    </textarea>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="offset-9 col-3">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+
+                        </form>
+                        <div class="mt-5">
+                            <div class="row">
+                                <div class=" offset-5 col-5">
+                                    <h5>Feedback</h5>
+                                </div>
+                            </div>
+                            <%
+                                
+                                try {
+                                    ResultSet result = (ResultSet) request.getAttribute("result");
+                                    
+                                    if (result != null) {
+                                        while (result.next()) {
+                            %>
+                            <div class="row">
+                                <div class=" offset-1 col-3 bg-primary  rounded">
+                                    <span class="fa fa-user"></span>
+                                    <%= result.getString("userName")%>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="offset-4 col-7 discr p-3 rounded-circle align-content-center">
+                                    <%= result.getString("message")%>
+                                </div>
+                            </div>
+                            <%
+                        }
+                        }
+                        else{
+                        out.println("no feedback yet");
+                        
+                        }
+                            }catch(Exception e){
+                        out.println("<p>no feedback yet, be the first one</p>");
+                        
+                    }
+                                    
+                            %>
+
+
+
+
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -139,9 +215,9 @@
                         <div class="col-4 offset-1 col-sm-2">
                             <h5>Links</h5>
                             <ul class="list-unstyled">
-                                <li><a href="#">Home</a></li>
-                                <li><a href="${pageContext.request.contextPath}/html/AboutUs.jsp">About</a></li>
-                                <li><a href="${pageContext.request.contextPath}/html/Help.jsp">Help</a></li>
+                                <li><a href="/career_guidance/HomePage">Home</a></li>
+                                <li><a href="AboutUs.jsp">About</a></li>
+                                <li><a href="Help.jsp">Help</a></li>
                                 <li><a href="/career_guidance/MessageProcessing">Contact</a></li>
                             </ul>
                         </div>
@@ -181,6 +257,7 @@
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/popper.min.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/test.js"></script>
-    
+
     </body>
 </html>
+

@@ -12,13 +12,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author paterne
  */
 public class Update extends HttpServlet {
-
+    database.Connections connection = new database.Connections();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -57,7 +58,7 @@ public class Update extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        database.Connections connections = new database.Connections();
+        
         String query = "UPDATE ";
         String operator = request.getParameter("operator");
         String tableName = request.getParameter("tableName");
@@ -68,11 +69,29 @@ public class Update extends HttpServlet {
                     query += "users SET username = \"" +request.getParameter("username")+"\",password = \""+request.getParameter("password")+
                             "\", firstName = \""+request.getParameter("firstName")+"\", lastName = \""+request.getParameter("lastName")+
                             "\", email = \"" +request.getParameter("email")+"\", typeOfUser = \""+ request.getParameter("typeOfUser")+"\" WHERE userId = \""+request.getParameter("userId")+"\";";
-                    if(connections.executeSet(query)){
+                    if(connection.executeSet(query)){
                         request.setAttribute("message", "user well updated");
-                        RequestDispatcher view = request.getRequestDispatcher("Admin");
+                        if(request.getParameter("nameOfPage").equals("dashboard")){
+                            HttpSession session = request.getSession(false);
+                            database.Users user =(database.Users) session.getAttribute("user");
+                            
+                            user.setEmail(request.getParameter("email"));
+                            user.setFirstName(request.getParameter("firstName"));
+                            user.setLastName(request.getParameter("lastName"));
+                            user.setPassword(request.getParameter("password"));
+                            user.setTypeOfUser(request.getParameter("typeOfUser"));
+                            user.setUsername(request.getParameter("username"));
+                            
+                            RequestDispatcher view = request.getRequestDispatcher("DashBoard");
 
                         view.forward(request, response);
+                        }
+                        else{
+                            RequestDispatcher view = request.getRequestDispatcher("Admin");
+
+                        view.forward(request, response);
+                        }
+                        
                     }
                     else{
                         PrintWriter out = response.getWriter();
@@ -85,7 +104,7 @@ public class Update extends HttpServlet {
                     query += "questions SET question = \"" +request.getParameter("question")+"\",riasecType = \""+request.getParameter("riasecType")+
                             "\", groupOfQuestion = \""+request.getParameter("groupOfQuestion")+"\", targetUser = \""+request.getParameter("targetUser")+
                             "\", nameOfGroup = \""+request.getParameter("nameOfGroup")+"\" WHERE qId = \""+request.getParameter("qId")+"\";";
-                    if(connections.executeSet(query)){
+                    if(connection.executeSet(query)){
                         request.setAttribute("message", "question well updated");
                         RequestDispatcher view = request.getRequestDispatcher("Admin");
 
@@ -104,7 +123,7 @@ public class Update extends HttpServlet {
                             "\", enterprising = \""+request.getParameter("enterprising")+"\", artistic = \""+request.getParameter("artistic")+
                             "\", conventional = \""+request.getParameter("conventional")+
                             "\" WHERE rId = \""+request.getParameter("rId")+"\";";
-                    if(connections.executeSet(query)){
+                    if(connection.executeSet(query)){
                         request.setAttribute("message", "result well updated");
                         RequestDispatcher view = request.getRequestDispatcher("Admin");
 
@@ -121,7 +140,7 @@ public class Update extends HttpServlet {
                     query += "records SET username = \"" +request.getParameter("username")+"\",type = \""+request.getParameter("type")+
                             "\", oriantation = \""+request.getParameter("oriantation")+
                             "\" WHERE rId = \""+request.getParameter("rId")+"\";";
-                    if(connections.executeSet(query)){
+                    if(connection.executeSet(query)){
                         request.setAttribute("message", "record well updated");
                         RequestDispatcher view = request.getRequestDispatcher("Admin");
 
@@ -227,7 +246,7 @@ public class Update extends HttpServlet {
             {
                 query = "DELETE FROM users WHERE userId =\""+request.getParameter("userId")+"\";";
                     
-                    if(connections.executeSet(query)){
+                    if(connection.executeSet(query)){
                         request.setAttribute("message", "user well updated");
                         RequestDispatcher view = request.getRequestDispatcher("Admin");
 
@@ -243,7 +262,7 @@ public class Update extends HttpServlet {
             {
                 query = "DELETE FROM questions WHERE qId =\""+request.getParameter("qId")+"\";";
                     
-                    if(connections.executeSet(query)){
+                    if(connection.executeSet(query)){
                         request.setAttribute("message", "question well updated");
                         RequestDispatcher view = request.getRequestDispatcher("Admin");
 
@@ -259,7 +278,7 @@ public class Update extends HttpServlet {
             {
                 query = "DELETE FROM results WHERE rId =\""+request.getParameter("rId")+"\";";
                     
-                    if(connections.executeSet(query)){
+                    if(connection.executeSet(query)){
                         request.setAttribute("message", "result well updated");
                         RequestDispatcher view = request.getRequestDispatcher("Admin");
 
@@ -275,7 +294,7 @@ public class Update extends HttpServlet {
             {
                 query = "DELETE FROM records WHERE rId =\""+request.getParameter("rId")+"\";";
                     
-                    if(connections.executeSet(query)){
+                    if(connection.executeSet(query)){
                         request.setAttribute("message", "record well updated");
                         RequestDispatcher view = request.getRequestDispatcher("Admin");
 
@@ -294,6 +313,7 @@ public class Update extends HttpServlet {
             PrintWriter out  = response.getWriter();
             out.print("vlaue ttribute value have problem");
         }
+//        connection.destroy();
         
     }
 
@@ -306,5 +326,7 @@ public class Update extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+    public void destroy() {
+        connection.destroy();
+    }
 }

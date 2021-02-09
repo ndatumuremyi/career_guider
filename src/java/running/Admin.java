@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 //@WebServlet("/Admin")
 public class Admin extends HttpServlet {
+    database.Connections connection;
     HttpServletRequest request;
     HttpServletResponse response;
     /**
@@ -51,7 +52,7 @@ public class Admin extends HttpServlet {
      */
     
     void addData(){
-        database.Connections connection = new database.Connections();
+        connection = new database.Connections();
         ArrayList<Users> users = connection.selectAll("users");
         ArrayList<Questions> questions = connection.selectAll("questions");
         ArrayList<Records> records = connection.selectAll("records");
@@ -68,6 +69,7 @@ public class Admin extends HttpServlet {
         } catch (ServletException | IOException ex) {
             Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
         }
+//        connection.destroy();
     }
     
     @Override
@@ -99,6 +101,10 @@ public class Admin extends HttpServlet {
      *
      * @return a String containing servlet description
      */
+    @Override
+    public void destroy() {
+        connection.destroy();
+    }
     @Override
     public String getServletInfo() {
         return "Short description";

@@ -1,6 +1,6 @@
 <%-- 
-    Document   : MyProfile
-    Created on : Feb 6, 2021, 7:15:16 PM
+    Document   : HomePage
+    Created on : Jan 14, 2021, 5:02:33 PM
     Author     : paterne
 --%>
 
@@ -15,15 +15,13 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
         <title>JSP Page</title>
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css?24">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css?21">
     </head>
     <body>
         <div class="container-fluid">
-            
-            
-            
             
             <%
                 String message = (String)request.getAttribute("message");
@@ -44,6 +42,9 @@
             
             
             
+            
+            
+            
             <div class="title">
                 <h1>Welcome to Career guider</h1>
             </div>
@@ -57,11 +58,12 @@
                     <div class="collapse navbar-collapse" id="Navbar">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item active"><a class="nav-link" href="#"><span class="fa fa-home fa-lg"></span> Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/aboutus.html"><span class="fa fa-home fa-info"></span> About Us</a></li>
-                            <li class="nav-item"><a class="nav-link" href="contactus.html"><span class="fa fa-home fa-address-card"></span> Contact Us</a></li>
-                            <li class="nav-item"><a class="nav-link" href="contactus.html"><span class="fa fa-home fa-help"></span> Help?</a></li>
+                            <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/html/AboutUs.jsp"><span class="fa fa-home fa-info"></span> About Us</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/career_guidance/MessageProcessing"><span class="fa fa-home fa-address-card"></span> Contact Us</a></li>
+                            <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/html/Help.jsp"><span class="fa fa-home fa-help"></span> Help?</a></li>
 
                         </ul>
+                            
                         <span class="navbar-text">
                             <a href="" data-toggle="modal" data-target= "#loginModal">
                                 <span class="fa fa-sign-in"></span> Login
@@ -75,7 +77,6 @@
                             </a>
                         </span>
                     </div>
-
                 </div>
             </nav>
             <div id="loginModal" class="modal fade" role="dialog">
@@ -91,15 +92,15 @@
                             <div class="row">
                                 
                             </div>
-                            <form action="">
+                            <form action="/career_guidance/authenticate" method="post">
                                 <div class="form-row">
                                     <div class="form-group col-sm-4">
                                         <label for="exampleInputEmail3" class="sr-only">Password</label>
-                                        <input type="email" class="form-control form-control-sm mr-1" id="exampleInputEmail3" placeholder="Enter email">
+                                        <input type="email" class="form-control form-control-sm mr-1" id="email" name="email" placeholder="Enter email">
                                     </div>
                                     <div class="form-group col-sm-4">
                                         <label class="sr-only" for="exampleInputPassword3"></label>
-                                        <input type="password" class="form-control form-control-sm mr-1" id="exampleInputPassword3" placeholder="Passowrd">
+                                        <input type="password" class="form-control form-control-sm mr-1" id="password" name="password" placeholder="Passowrd">
                                     </div>
                                     <div class="col-sm-auto">
                                         <div class="form-check">
@@ -118,13 +119,17 @@
                 </div>
             </div>
 
-            <div>
-
+            <div class="contents">
+               
                 <div class="row">
-                    <div class="discr col-8 p-3 offset-auto">
+                    <div class="discr col-4 p-3 offset-1">
                         <p class="">You are struggling
                             to find a career path and 
                             need some inspiration?</p>
+                    </div>
+                    <div class="image offset-1 col-6">
+                        <img class="image1 img-fluid" src="${pageContext.request.contextPath}/images/careerguidance.png" alt="carreer">
+
                     </div>
                 </div>
             </div>
@@ -135,9 +140,9 @@
                             <h5>Links</h5>
                             <ul class="list-unstyled">
                                 <li><a href="#">Home</a></li>
-                                <li><a href="./aboutus.html">About</a></li>
-                                <li><a href="#">Menu</a></li>
-                                <li><a href="contactus.html">Contact</a></li>
+                                <li><a href="${pageContext.request.contextPath}/html/AboutUs.jsp">About</a></li>
+                                <li><a href="${pageContext.request.contextPath}/html/Help.jsp">Help</a></li>
+                                <li><a href="/career_guidance/MessageProcessing">Contact</a></li>
                             </ul>
                         </div>
                         <div class="col-7 col-sm-5">
