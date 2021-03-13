@@ -391,7 +391,7 @@
                                 Kigali<br>
                                 <i class="fa fa-phone fg-lg"></i> +250 786388768<br>
                                 <i class="fa fa-fax fa-lg"></i>: +250 786388768<br>
-                                <i class="fa fa-envelope fa-lg"></i>: <a href="mailto:paternenught@gmail.com">paternenught@gmail.com</a>
+                                <i class="fa fa-envelope fa-lg"></i>: <a href="mailto:uwitonze@gmail.com">uwitonze@gmail.com</a>
                             </address>
                         </div>
                         <div class="col-12 col-sm-4 align-self-center">

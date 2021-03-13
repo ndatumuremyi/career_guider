@@ -130,7 +130,7 @@
                 <div class="row">
 
                     <div class="col-12 col-sm-4">
-                        <div class="shadow-none p-3 mb-5 bg-warning rounded ml-3">
+<!--                        <div class="shadow-none p-3 mb-5 bg-warning rounded ml-3">
                             <div class="card">
                                 <div class="card-body">
                                     <dl class="row">
@@ -150,7 +150,7 @@
                                     </dl>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
 
                     </div>
                     <div class="col-12 col-sm-4 ">
@@ -179,7 +179,7 @@
                     </div>
                         </div>
                     <div class="col-12 col-sm-4 mt-5">
-                        <div class="shadow-none p-3 mb-5 mt-5 bg-warning rounded ml-3">
+<!--                        <div class="shadow-none p-3 mb-5 mt-5 bg-warning rounded ml-3">
                             <div class="card">
                                 <div class="card-body">
                                     <dl class="row">
@@ -200,7 +200,7 @@
                                 </div>
                             </div>
 
-                    </div>
+                    </div>-->
 
                     </div>
                 
@@ -226,7 +226,7 @@
                                 Kigali<br>
                                 <i class="fa fa-phone fg-lg"></i> +250 786388768<br>
                                 <i class="fa fa-fax fa-lg"></i>: +250 786388768<br>
-                                <i class="fa fa-envelope fa-lg"></i>: <a href="mailto:paternenught@gmail.com">paternenught@gmail.com</a>
+                                <i class="fa fa-envelope fa-lg"></i>: <a href="mailto:uwitonze@gmail.com">uwitonze@gmail.com</a>
                             </address>
                         </div>
                         <div class="col-12 col-sm-4 align-self-center">
